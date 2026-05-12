@@ -1,0 +1,84 @@
+/* VARIABLES DE CSS */
+
+:root {
+    --color-tinta: black;
+    --color-fondo: white;
+    --color-enlace: rgb(55, 131, 229);
+    --color-enlace-hover: blue;
+
+    --tipo-letra: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+    --margen: 1rem;
+    --margen-pequeno: 0.5rem;
+}
+
+/* ESTILOS GLOBALES */
+
+body {
+    background-color: var(--color-fondo);
+    color: var(--color-tinta);
+
+    font-family: var(--tipo-letra);
+
+    margin: 0;
+}
+
+a {
+    color: var(--color-enlace);
+    text-decoration: none;
+
+    &:hover {
+        color: var(--color-enlace-hover);
+        text-decoration: underline;
+    }
+}
+
+/* ESTRUCTURA */
+
+header {
+    h1 {
+        margin: 0;
+
+        text-align: center;
+    }
+
+    border-bottom: 1px solid var(--color-fondo);
+}
+
+header,
+nav {
+    background-color: var(--color-tinta);
+    color: var(--color-fondo);
+
+    padding: var(--margen);
+}
+
+nav {
+    ul {
+        list-style: none;
+
+        margin: 0;
+        padding: 0;
+
+        text-align: center;
+
+        a {
+            display: block;
+
+            margin: var(--margen) 0;
+
+            color: var(--color-fondo);
+
+            padding: var(--margen-pequeno);
+
+            border-radius: var(--margen-pequeno);
+
+            &:hover {
+                background-color: var(--color-fondo);
+                color: var(--color-tinta);
+
+                text-decoration: none;
+            }
+        }
+    }
+}
