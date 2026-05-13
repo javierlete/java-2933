@@ -90,76 +90,80 @@ public class HolaMundo {
             <section id="tablas">
                 <h4>Tablas</h4>
 
-                <!-- table>(thead>tr>th*3>{Título $})+(tbody>tr*4>td*3>{Contenido $}) -->
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Título 1</th>
-                            <th>Título 2</th>
-                            <th>Título 3</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Contenido 1</td>
-                            <td>Contenido 2</td>
-                            <td>Contenido 3</td>
-                        </tr>
-                        <tr>
-                            <td>Contenido 1</td>
-                            <td>Contenido 2</td>
-                            <td>Contenido 3</td>
-                        </tr>
-                        <tr>
-                            <td>Contenido 1</td>
-                            <td>Contenido 2</td>
-                            <td>Contenido 3</td>
-                        </tr>
-                        <tr>
-                            <td>Contenido 1</td>
-                            <td>Contenido 2</td>
-                            <td>Contenido 3</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="tabla">
+                    <!-- table>(thead>tr>th*3>{Título $})+(tbody>tr*4>td*3>{Contenido $}) -->
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Título 1</th>
+                                <th>Título 2</th>
+                                <th>Título 3</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Contenido 1</td>
+                                <td>Contenido 2</td>
+                                <td>Contenido 3</td>
+                            </tr>
+                            <tr>
+                                <td>Contenido 1</td>
+                                <td>Contenido 2</td>
+                                <td>Contenido 3</td>
+                            </tr>
+                            <tr>
+                                <td>Contenido 1</td>
+                                <td>Contenido 2</td>
+                                <td>Contenido 3</td>
+                            </tr>
+                            <tr>
+                                <td>Contenido 1</td>
+                                <td>Contenido 2</td>
+                                <td>Contenido 3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-                <table>
-                    <caption>Ejemplo de tabla</caption>
-                    <thead>
-                        <tr>
-                            <th scope="col">ID</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Precio (€)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">PRD-001</th>
-                            <td>iPhone 15 128GB</td>
-                            <td>969.00</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">PRD-002</th>
-                            <td>Samsung Galaxy S24</td>
-                            <td>899.00</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">PRD-003</th>
-                            <td>MacBook Air 13" M2</td>
-                            <td>1,299.00</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">PRD-004</th>
-                            <td>PlayStation 5 Slim</td>
-                            <td>549.99</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">PRD-005</th>
-                            <td>AirPods Pro (2ª generación)</td>
-                            <td>279.00</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="tabla">
+                    <table>
+                        <caption>Ejemplo de tabla</caption>
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Precio (€)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">PRD-001</th>
+                                <td>iPhone 15 128GB</td>
+                                <td>969.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">PRD-002</th>
+                                <td>Samsung Galaxy S24</td>
+                                <td>899.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">PRD-003</th>
+                                <td>MacBook Air 13" M2</td>
+                                <td>1,299.00</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">PRD-004</th>
+                                <td>PlayStation 5 Slim</td>
+                                <td>549.99</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">PRD-005</th>
+                                <td>AirPods Pro (2ª generación)</td>
+                                <td>279.00</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </section>
 
             <section id="multimedia">
@@ -175,17 +179,17 @@ public class HolaMundo {
                 <video controls
                     src="https://upload.wikimedia.org/wikipedia/commons/transcoded/7/79/Big_Buck_Bunny_small.ogv/Big_Buck_Bunny_small.ogv.240p.vp9.webm"></video>
 
-                <iframe
+                <iframe id="mapa"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2905.762268580201!2d-2.91616692380936!3d43.25640397112376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4e4fb46238d865%3A0xb671edfb1120ab06!2sIpartek%20Servicios%20Inform%C3%A1ticos!5e0!3m2!1ses-419!2ses!4v1778486987820!5m2!1ses-419!2ses"
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-                <iframe data-testid="embed-iframe"
+                <iframe id="spotify" data-testid="embed-iframe"
                     src="https://open.spotify.com/embed/artist/568ZhdwyaiCyOGJRtNYhWf?utm_source=generator&theme=0"
                     allowfullscreen=""
                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                     loading="lazy"></iframe>
 
-                <iframe src="https://www.youtube.com/embed/lX_pF03vCSU?si=PhmFzK-uwDYLTkRn" title="YouTube video player"
+                <iframe id="youtube" src="https://www.youtube.com/embed/lX_pF03vCSU?si=PhmFzK-uwDYLTkRn" title="YouTube video player"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                     referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </section>
