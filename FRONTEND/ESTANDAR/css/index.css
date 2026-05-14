@@ -1,3 +1,7 @@
+/* TIPOS DE LETRA */
+
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Tilt+Neon&display=swap');
+
 /* CAMBIOS GLOBALES */
 
 * {
@@ -14,8 +18,9 @@
     --color-enlace: rgb(55, 131, 229);
     --color-enlace-hover: blue;
 
-    --tipo-letra: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    --tipo-letra-titulo: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    --tipo-letra: "Nunito Sans", sans-serif;
+    --tipo-letra-titulo: "Tilt Neon", sans-serif;
+    --tipo-letra-codigo: "Inconsolata", monospace;
 
     --margen: 1rem;
     --margen-pequeno: 0.5rem;
@@ -75,6 +80,8 @@ h4 {
 }
 
 pre {
+    font-family: var(--tipo-letra-codigo);
+
     padding: var(--margen-pequeno);
     background-color: var(--color-fondo-suave);
 
