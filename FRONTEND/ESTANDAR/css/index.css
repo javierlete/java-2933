@@ -180,7 +180,8 @@ iframe {
 
 fieldset,
 input,
-button {
+button,
+.boton {
     border: var(--borde);
     border-radius: var(--margen-pequeno);
 
@@ -193,9 +194,17 @@ input {
     width: 100%;
 }
 
-button {
+button,
+.boton {
     font-weight: bold;
+    color: var(--color-tinta);
     background-color: var(--color-fondo-suave);
+
+    &:hover {
+        cursor: default;
+        text-decoration: none;
+        color: var(--color-tinta);
+    }
 }
 
 /* ESTRUCTURA */
@@ -273,4 +282,15 @@ main {
 
 #mapa {
     aspect-ratio: 4 / 3;
+}
+
+#arriba {
+    position: fixed;
+
+    bottom: 0;
+    right: 0;
+
+    margin-right: 2rem;
+
+    box-shadow: .5rem .5rem 1rem rgba(0, 0, 0, 0.5);
 }
