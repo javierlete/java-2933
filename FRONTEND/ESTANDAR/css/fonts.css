@@ -1,0 +1,14 @@
+@font-face {
+    font-family: "Nunito Sans";
+    src: url(../fonts/Nunito_Sans/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf);
+}
+
+@font-face {
+    font-family: "Tilt Neon";
+    src: url(../fonts/Tilt_Neon/TiltNeon-Regular-VariableFont_XROT\,YROT.ttf);
+}
+
+@font-face {
+    font-family: "Inconsolata";
+    src: url(../fonts/Inconsolata/Inconsolata-VariableFont_wdth\,wght.ttf);
+}
