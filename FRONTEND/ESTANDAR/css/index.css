@@ -2,6 +2,10 @@
 
 @import url(fonts.css);
 
+/* FONT AWESOME */
+
+@import url(all.min.css);
+
 /* CAMBIOS GLOBALES */
 
 * {
@@ -300,4 +304,14 @@ main {
     margin-right: 2rem;
 
     box-shadow: .5rem .5rem 1rem rgba(0, 0, 0, 0.5);
+}
+
+#redes-sociales {
+    li {
+        display: inline;
+
+        a {
+            color: var(--color-fondo);
+        }
+    }
 }
