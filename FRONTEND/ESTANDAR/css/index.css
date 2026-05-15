@@ -62,6 +62,8 @@ h6 {
     text-align: center;
 
     font-family: var(--tipo-letra-titulo);
+
+    width: 100%;
 }
 
 h1 {
@@ -72,8 +74,8 @@ h2 {
     font-variant: small-caps;
 }
 
-h3,
-h4 {
+h2,
+h3 {
     &::before {
         content: '<';
     }
@@ -81,6 +83,11 @@ h4 {
     &::after {
         content: '>';
     }
+}
+
+h3 {
+    border-bottom: var(--borde);
+    padding-bottom: var(--margen-pequeno);
 }
 
 pre {
@@ -220,57 +227,60 @@ button,
 
 /* ESTRUCTURA */
 
-header {
-    h1 {
-        margin: 0;
+body {
+
+    &>header {
+        h1 {
+            margin: 0;
+        }
+
+        border-bottom: 1px solid var(--color-fondo);
     }
 
-    border-bottom: 1px solid var(--color-fondo);
-}
+    &>header,
+    &>nav,
+    &>footer {
+        background-color: var(--color-tinta);
+        color: var(--color-fondo);
 
-header,
-nav,
-footer {
-    background-color: var(--color-tinta);
-    color: var(--color-fondo);
-
-    padding: var(--margen);
-
-    text-align: center;
-}
-
-nav {
-    ul {
-        list-style: none;
-
-        margin: 0;
-        padding: 0;
+        padding: var(--margen);
 
         text-align: center;
+    }
 
-        a {
-            display: block;
+    &>nav {
+        ul {
+            list-style: none;
 
-            margin: var(--margen) 0;
+            margin: 0;
+            padding: 0;
 
-            color: var(--color-fondo);
+            text-align: center;
 
-            padding: var(--margen-pequeno);
+            a {
+                display: block;
 
-            border-radius: var(--margen-pequeno);
+                margin: var(--margen) 0;
 
-            &:hover {
-                background-color: var(--color-fondo);
-                color: var(--color-tinta);
+                color: var(--color-fondo);
 
-                text-decoration: none;
+                padding: var(--margen-pequeno);
+
+                border-radius: var(--margen-pequeno);
+
+                &:hover {
+                    background-color: var(--color-fondo);
+                    color: var(--color-tinta);
+
+                    text-decoration: none;
+                }
             }
         }
     }
-}
 
-main {
-    padding: var(--margen);
+    &>main {
+        padding: var(--margen);
+    }
 }
 
 #tablas table:last-of-type {
@@ -313,5 +323,94 @@ main {
         a {
             color: var(--color-fondo);
         }
+    }
+}
+
+@media (min-width: 768px) {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        text-align: start;
+    }
+
+    body {
+        &>nav {
+            position: sticky;
+            top: 0;
+            z-index: 1;
+
+            ul {
+                display: flex;
+                justify-content: space-between;
+
+                a {
+                    margin: 0;
+                }
+            }
+        }
+
+        &>footer {
+            display: flex;
+            justify-content: space-between;
+
+            &>* {
+                margin: 0;
+            }
+        }
+    }
+
+    body>main>article>section {
+        scroll-margin-top: 80px;
+    }
+
+    #parrafos {
+        display: flex;
+        flex-wrap: wrap;
+
+        justify-content: space-around;
+
+        &>p {
+            width: 50%;
+        }
+    }
+
+    #listas {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        &>* {
+            padding: var(--margen);
+        }
+    }
+    
+    #formularios {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        gap: var(--margen);
+
+        &>form {
+            width: calc(50% - var(--margen) / 2);
+        }
+
+        &>form:first-of-type {
+            order: 2;
+        }
+    }
+
+    #redes-sociales {
+        display: flex;
+        gap: var(--margen);
+        padding: 0;
+    }
+
+    #arriba {
+        display: none;
     }
 }
