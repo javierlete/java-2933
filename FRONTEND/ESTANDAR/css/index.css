@@ -414,3 +414,61 @@ body {
         display: none;
     }
 }
+
+@media (min-width: 1024px) {
+    #parrafos {
+        gap: var(--margen);
+
+        &>p {
+            width: calc(25% - var(--margen));
+        }
+    }
+
+    #tablas {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--margen);
+        
+        .tabla {
+            width: calc(50% - var(--margen)/2);
+        }
+
+        .tabla:first-of-type {
+            order: 2;
+        }
+    }
+
+    #multimedia {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--margen);
+
+        &>:not(h3) {
+            width: calc(50% - var(--margen) / 2);
+        }
+
+        h3 {
+            order: -3;
+        }
+
+        audio {
+            order: -2;
+            width: 100%;
+        }
+
+        #mapa {
+            order: -1;
+            width: 100%;
+
+            aspect-ratio: 3 / 1;
+        }
+
+        #spotify {
+            aspect-ratio: 16 / 9;
+        }
+
+        video {
+            order: 10;
+        }
+    }
+}
