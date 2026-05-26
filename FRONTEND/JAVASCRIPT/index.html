@@ -4,10 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
+    <style>
+        .titulo {
+            font-variant: small-caps;
+        }
+    </style>
 
-    <script src="js/clases.js"></script>
+    <script defer src="js/dom.js"></script>
 </head>
 <body>
     <h1>Abre la consola del navegador</h1>
+
+    <button id="saludar">Salúdame</button>
+
+    <form id="formulario-saludar">
+        <input type="text" id="nombre" name="nombre" placeholder="Dime tu nombre">
+
+        <button>Saludar</button>
+
+        <span id="saludo"></span>
+    </form>
+
+    <form id="formulario-tareas">
+        <input type="text" id="tarea" name="tarea" placeholder="Introduce la tarea a añadir">
+
+        <button>Añadir</button>
+        <button id="vaciar-lista" type="button">Vaciar lista</button>
+
+        <ul id="lista-tareas"></ul>
+    </form>
 </body>
 </html>
