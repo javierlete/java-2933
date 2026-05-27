@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+input, button {
+    border: 1px solid lightgray;
+    border-radius: .5rem;
+
+    padding: .25rem;
+
+    width: 100%;
+
+    margin: .25rem 0;
+}
+
+.completada {
+    text-decoration: line-through;
+    color: gray;
+}
+
+li {
+    list-style: none;
+
+    label {
+        display: flex;
+
+        input {
+            order: -1;
+            width: auto;
+
+            margin-right: .25rem;
+        }
+    }
+
+}

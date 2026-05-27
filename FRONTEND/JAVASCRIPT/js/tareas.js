@@ -11,6 +11,12 @@ window.addEventListener('DOMContentLoaded', () => {
         const input = document.createElement('input');
         const label = document.createElement('label');
 
+        const textoTarea = form.tarea.value.trim();
+        
+        if(!textoTarea) {
+            return;
+        }
+
         input.type = 'checkbox';
         input.addEventListener('change', e => {
             const elInput = e.target;
@@ -21,10 +27,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
             console.log(elInput.checked);
 
-            laLabel.style.textDecoration = elInput.checked ? 'line-through' : '';
+            if(elInput.checked) {
+                laLabel.classList.add('completada');
+            } else {
+                laLabel.classList.remove('completada');
+            }
         });
 
-        label.textContent = form.tarea.value;
+        label.textContent = textoTarea;
 
         label.appendChild(input);
 
