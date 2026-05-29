@@ -16,55 +16,48 @@ for (const etiqueta of etiquetas) {
     const boton = document.createElement('button');
     boton.textContent = etiqueta;
 
-    boton.addEventListener('click', botonPulsado);
-
     if (etiqueta === '=') {
         boton.className = 'destacado';
-    }
-
-    if (etiqueta >= '0' && etiqueta <= '9') {
+        boton.addEventListener('click', ejecutarIgual);
+    } else if (etiqueta >= '0' && etiqueta <= '9') {
         boton.className = 'numero';
+        boton.addEventListener('click', ejecutarNumero);
+    } else if(etiqueta === 'C') {
+        boton.addEventListener('click', ejecutarC);
+    } else {
+        boton.addEventListener('click', ejecutarOperacion);
     }
 
     calculadora.appendChild(boton);
 }
 
-function botonPulsado(e) {
+function ejecutarNumero(e) {
     const etiqueta = e.target.textContent;
-    console.log('BOTON_PULSADO', etiqueta);
-
-    // if (!isNaN(parseInt(etiqueta))) { //etiqueta >= '0' && etiqueta <= '9') {
-    //     resultado.textContent += etiqueta;
-    // }
-
     const pantalla = inputResultado.textContent;
+    
+    resultado = (pantalla !== '0' ? pantalla : '') + etiqueta;
+    
+    inputResultado.textContent = resultado;
+}
 
-    switch (etiqueta) {
-        case '0':
-        case '1':
-        case '2':
-        case '3':
-        case '4':
-        case '5':
-        case '6':
-        case '7':
-        case '8':
-        case '9': resultado = (pantalla !== '0' ? pantalla : '') + etiqueta; break;
-        case 'C': resultado = 0; break;
-        case '+':
-        case '-':
-        case 'X':
-        case '/': op1 = +pantalla; op = etiqueta; resultado = 0; break;
-        case '=': ejecutarOperacion(); break;
-        default: resultado = pantalla;
-    }
+function ejecutarC() {
+    resultado = 0;
+    
+    inputResultado.textContent = resultado;
+}
 
-    // MOSTRAR EN PANTALLA
+function ejecutarOperacion(e) {
+    const etiqueta = e.target.textContent;
+    const pantalla = inputResultado.textContent;
+    
+    op1 = +pantalla; 
+    op = etiqueta; 
+    resultado = 0;
 
     inputResultado.textContent = resultado;
 }
 
-function ejecutarOperacion() {
+function ejecutarIgual() {
     const pantalla = inputResultado.textContent;
     op2 = +pantalla;
 
