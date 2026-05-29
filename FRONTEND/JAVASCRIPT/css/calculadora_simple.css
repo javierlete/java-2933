@@ -12,7 +12,8 @@ body {
 input,
 select,
 textarea,
-button {
+button,
+#resultado {
     border: 1px solid lightgray;
     border-radius: .25rem;
 

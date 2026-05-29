@@ -6,22 +6,27 @@
     <title>Calculadora</title>
 
     <link rel="stylesheet" href="css/calculadora_simple.css">
+    <script defer src="js/calculadora_simple.js"></script>
 </head>
 <body>
     <h1>Calculadora</h1>
 
     <form>
-        <input type="number" placeholder="Operando 1">
-        <select>
+        <input id="op1" name="op1" type="number" placeholder="Operando 1">
+        
+        <select id="op" name="op">
             <option disabled selected>Operación</option>
             <option>+</option>
             <option>-</option>
             <option>x</option>
             <option>/</option>
         </select>
-        <input type="number" placeholder="Operando 2">
+        
+        <input id="op2" name="op2" type="number" placeholder="Operando 2">
+        
         <button>=</button>
-        <input readonly placeholder="Resultado">
+        
+        <div id="resultado">Resultado</div>
     </form>
 </body>
 </html>
