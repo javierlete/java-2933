@@ -20,7 +20,7 @@ form.addEventListener('submit', async e => {
     try {
         const response = await fetch(URL, options);
         const productoCreado = await response.json();
-        
+
         console.log(productoCreado);
 
         form.reset();
@@ -44,9 +44,21 @@ async function refrescarListado() {
     for (const producto of productos) {
         const li = document.createElement('li');
 
-        li.textContent = producto.nombre; //JSON.stringify(producto);
+        li.innerHTML = `${producto.nombre} <button onclick="javascript:borrar(${producto.id})">X</button>`; //JSON.stringify(producto);
 
         ul.appendChild(li);
     }
 }
 
+window.borrar = async function (id) {
+    console.log('BORRAR', id);
+
+    try {
+        const response = await fetch(URL + id, { method: 'DELETE' });
+        console.log(response);
+
+        await refrescarListado();
+    } catch (error) {
+        console.error(error);
+    }
+}
