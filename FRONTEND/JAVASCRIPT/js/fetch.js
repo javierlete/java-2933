@@ -1,19 +1,52 @@
 const ul = document.querySelector('ul');
 
-const URL = 'http://localhost:3000/productos';
+const URL = 'http://localhost:3000/productos/';
 
-const respuesta = await fetch(URL);
+await refrescarListado();
 
-console.log(respuesta);
+const form = document.forms[0];
 
-const productos = await respuesta.json();
+form.addEventListener('submit', async e => {
+    e.preventDefault();
 
-console.log(productos);
+    const producto = { nombre: form.nombre.value };
 
-for (const producto of productos) {
-    const li = document.createElement('li');
+    const options = {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(producto)
+    };
 
-    li.textContent = producto.nombre; //JSON.stringify(producto);
+    try {
+        const response = await fetch(URL, options);
+        const productoCreado = await response.json();
+        
+        console.log(productoCreado);
 
-    ul.appendChild(li);
+        form.reset();
+
+        await refrescarListado();
+    } catch (error) {
+        console.error(error);
+    }
+});
+async function refrescarListado() {
+    const respuesta = await fetch(URL);
+
+    console.log(respuesta);
+
+    const productos = await respuesta.json();
+
+    console.log(productos);
+
+    ul.innerHTML = '';
+
+    for (const producto of productos) {
+        const li = document.createElement('li');
+
+        li.textContent = producto.nombre; //JSON.stringify(producto);
+
+        ul.appendChild(li);
+    }
 }
+
