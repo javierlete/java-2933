@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tienda Bootstrap</title>
+
+    <base href="/FRONTEND/EJEMPLOS/TIENDA/">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link href="imgs/cart4.svg" rel="icon">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Tienda Bootstrap</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="productos.html">Productos</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" />
+                    <button class="btn btn-outline-light" type="submit">Buscar</button>
+                </form>
+                <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin/listado.html">Admin</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-4">
+            <!-- Productos diferentes con imagenes numeradas al final de la URL -->
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/400/300?1" class="card-img-top" alt="Cámara Canon EOS R10">
+                    <div class="card-body">
+                        <h5 class="card-title">Cámara Canon EOS R10</h5>
+                        <p class="card-text">Mirrorless APS-C, 24MP, AF rápido y grabación 4K.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">Precio: 999,00 €</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/400/300?2" class="card-img-top" alt="Auriculares Bose QuietComfort">
+                    <div class="card-body">
+                        <h5 class="card-title">Bose QuietComfort Earbuds</h5>
+                        <p class="card-text">Cancelación de ruido y sonido equilibrado.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">Disponible: En stock</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/400/300?3" class="card-img-top" alt="Reloj Garmin Forerunner">
+                    <div class="card-body">
+                        <h5 class="card-title">Garmin Forerunner 255</h5>
+                        <p class="card-text">Reloj GPS multideporte con métricas avanzadas.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">Oferta: 15% de descuento</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/400/300?4" class="card-img-top" alt="Portátil Dell XPS 13">
+                    <div class="card-body">
+                        <h5 class="card-title">Dell XPS 13</h5>
+                        <p class="card-text">Ultrabook con pantalla InfinityEdge y procesador Intel i7.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">Precio: 1.299,00 €</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/400/300?5" class="card-img-top" alt="Tablet iPad Air">
+                    <div class="card-body">
+                        <h5 class="card-title">Apple iPad Air 5</h5>
+                        <p class="card-text">Chip M1 y pantalla Liquid Retina.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">Disponible: En stock</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/400/300?6" class="card-img-top" alt="Smartphone OnePlus 11">
+                    <div class="card-body">
+                        <h5 class="card-title">OnePlus 11</h5>
+                        <p class="card-text">Rendimiento y carga rápida.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">Precio: 799,00 €</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/400/300?7" class="card-img-top" alt="Altavoz JBL Charge 5">
+                    <div class="card-body">
+                        <h5 class="card-title">JBL Charge 5</h5>
+                        <p class="card-text">Altavoz portátil resistente al agua.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">Disponible: En stock</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/400/300?8" class="card-img-top" alt="Monitor LG UltraWide 34">
+                    <div class="card-body">
+                        <h5 class="card-title">LG UltraWide 34"</h5>
+                        <p class="card-text">Pantalla curva para productividad y gaming.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">Oferta: 20% de descuento</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="https://picsum.photos/400/300?9" class="card-img-top" alt="SSD Samsung 980 PRO 1TB">
+                    <div class="card-body">
+                        <h5 class="card-title">SSD Samsung 980 PRO 1TB</h5>
+                        <p class="card-text">Almacenamiento NVMe de altas velocidades.</p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-body-secondary">Precio: 159,99 €</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="p-2 text-bg-dark">
+        &copy;2026 Javier Lete
+    </footer>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

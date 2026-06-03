@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tienda Bootstrap</title>
+
+    <base href="/FRONTEND/BOOTSTRAP/">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-icons.min.css" rel="stylesheet">
+
+    <link href="imgs/cart4.svg" rel="icon">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-dark" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Tienda Bootstrap</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="productos.html">Productos</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search" />
+                    <button class="btn btn-outline-light" type="submit">Buscar</button>
+                </form>
+                <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="admin/listado.html">Admin</a>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+        <table class="table table-hover table-striped table-bordered">
+            <caption>Mantenimiento de productos</caption>
+
+            <thead class="table-secondary">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>OPCIONES</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Camisa blanca</td>
+                    <td>19,99 €</td>
+                    <td>
+                        <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        <a href="admin/listado.html" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jeans azul</td>
+                    <td>34,50 €</td>
+                    <td>
+                        <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        <a href="admin/listado.html" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Chaqueta de cuero</td>
+                    <td>79,00 €</td>
+                    <td>
+                        <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        <a href="admin/listado.html" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Zapatos deportivos</td>
+                    <td>59,99 €</td>
+                    <td>
+                        <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        <a href="admin/listado.html" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Sudadera gris</td>
+                    <td>29,90 €</td>
+                    <td>
+                        <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        <a href="admin/listado.html" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Bolso de mano</td>
+                    <td>45,00 €</td>
+                    <td>
+                        <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        <a href="admin/listado.html" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Gafas de sol</td>
+                    <td>15,75 €</td>
+                    <td>
+                        <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        <a href="admin/listado.html" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Reloj clásico</td>
+                    <td>120,00 €</td>
+                    <td>
+                        <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        <a href="admin/listado.html" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Bufanda de seda</td>
+                    <td>24,20 €</td>
+                    <td>
+                        <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-pencil-fill"></i>
+                        </a>
+
+                        <a href="admin/listado.html" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+
+            <tfoot class="table-secondary">
+                <tr>
+                    <td colspan="3"></td>
+                    <td>
+                        <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-plus-lg"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </main>
+
+    <footer class="p-2 text-bg-dark">
+        &copy;2026 Javier Lete
+    </footer>
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
