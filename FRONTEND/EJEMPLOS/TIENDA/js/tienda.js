@@ -1,10 +1,20 @@
 const URL_PRODUCTOS = 'https://6a1fe16be96c1d13b5868fb0.mockapi.io/api/v1/productos/';
 
 const listadoProductos = document.querySelector('#productos div');
-
-await listarProductos();
-
 const formularioBusqueda = document.querySelector('#formulario-busqueda');
+const adminTbody = document.querySelector('#admin-listado tbody');
+
+window.mostrarProductos = async () => {
+    await listarProductos();
+    mostrarSeccion('productos');
+};
+
+window.mostrarAdminListado = async () => {
+    await cargarTabla();
+    mostrarSeccion('admin-listado');
+};
+
+window.mostrarAdminListado();
 
 formularioBusqueda.addEventListener('submit', e => {
     e.preventDefault();
@@ -39,7 +49,7 @@ async function listarProductos(texto) {
     listadoProductos.innerHTML = '';
 
     for (const p of productos) {
-        console.log(p);
+        console.debug(p);
 
         const div = document.createElement('div');
 
@@ -62,4 +72,54 @@ async function listarProductos(texto) {
 
         listadoProductos.appendChild(div);
     }
+}
+
+async function cargarTabla() {
+    const respuesta = await fetch(URL_PRODUCTOS);
+
+    console.log(respuesta);
+
+    const productos = await respuesta.json();
+
+    console.log(productos);
+
+    adminTbody.innerHTML = '';
+
+    for (const p of productos) {
+        console.debug(p);
+
+        const tr = document.createElement('tr');
+
+        const htmlProducto = `
+            <td>${p.id}</td>
+            <td>${p.nombre}</td>
+            <td>${p.precio} €</td>
+            <td>
+                <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                    <i class="bi bi-pencil-fill"></i>
+                </a>
+
+                <a href="admin/listado.html" class="btn btn-sm btn-danger">
+                    <i class="bi bi-trash-fill"></i>
+                </a>
+
+            </td>
+        `;
+
+        tr.innerHTML = htmlProducto;
+
+        adminTbody.appendChild(tr);
+    }
+}
+
+function mostrarSeccion(id) {
+    const secciones = document.querySelectorAll('main>section');
+
+    for(const seccion of secciones) {
+        seccion.style.display = 'none';
+    }
+
+    const seccionAMostrar = document.getElementById(id); // document.querySelector('#' + id);
+
+    seccionAMostrar.style.display = null;
 }

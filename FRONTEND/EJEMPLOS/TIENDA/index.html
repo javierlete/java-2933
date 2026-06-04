@@ -26,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-sm-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="productos.html">Productos</a>
+                        <a class="nav-link" href="javascript:mostrarProductos()">Productos</a>
                     </li>
                 </ul>
                 <form id="formulario-busqueda" class="d-flex" role="search">
@@ -35,7 +35,7 @@
                 </form>
                 <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="admin/listado.html">Admin</a>
+                        <a class="nav-link" href="javascript:mostrarAdminListado()">Admin</a>
                     </li>
                 </ul>
 
@@ -44,10 +44,42 @@
     </nav>
 
     <main class="container my-5">
-        <div id="productos">
+        <section id="productos">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 row-cols-xxl-6 g-4">
             </div>
-        </div>
+        </section>
+
+        <section id="admin-listado">
+            <h1>Admin listado</h1>
+
+            <table class="table table-hover table-striped table-bordered">
+            <caption>Mantenimiento de productos</caption>
+
+            <thead class="table-secondary">
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>OPCIONES</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                
+            </tbody>
+
+            <tfoot class="table-secondary">
+                <tr>
+                    <td colspan="3"></td>
+                    <td>
+                        <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                            <i class="bi bi-plus-lg"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+        </section>
     </main>
 
     <footer class="p-2 text-bg-dark">
