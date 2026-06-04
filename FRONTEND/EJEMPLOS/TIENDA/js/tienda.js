@@ -1,3 +1,7 @@
+import { crearFormateadorUniversal } from "./formateadorUniversal.js";
+
+const formateador = crearFormateadorUniversal({ locale: 'es-ES'});
+
 const URL_PRODUCTOS = 'https://6a1fe16be96c1d13b5868fb0.mockapi.io/api/v1/productos/';
 
 const listadoProductos = document.querySelector('#productos div');
@@ -107,7 +111,7 @@ async function cargarTabla() {
         const htmlProducto = `
             <td class="text-end">${p.id}</td>
             <td>${p.nombre}</td>
-            <td class="text-end">${p.precio} €</td>
+            <td class="text-end">${formateador(+p.precio, { preset: "moneda" })}</td>
             <td>
                 <a href="javascript:mostrarFormulario(${p.id})" class="btn btn-sm btn-primary">
                     <i class="bi bi-pencil-fill"></i>
