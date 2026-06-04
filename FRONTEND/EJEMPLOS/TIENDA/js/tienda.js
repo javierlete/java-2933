@@ -14,6 +14,20 @@ window.mostrarAdminListado = async () => {
     mostrarSeccion('admin-listado');
 };
 
+window.mostrarFormulario = async id => {
+    console.log('MOSTRAR FORMULARIO', id);
+};
+
+window.borrarProducto = async id => {
+    console.log('BORRAR PRODUCTO', id);
+
+    const respuesta = await fetch(URL_PRODUCTOS + id, { method: 'DELETE' });
+
+    console.log(respuesta);
+
+    await cargarTabla();
+};
+
 window.mostrarAdminListado();
 
 formularioBusqueda.addEventListener('submit', e => {
@@ -29,7 +43,7 @@ formularioBusqueda.addEventListener('submit', e => {
 async function listarProductos(texto) {
     let url = URL_PRODUCTOS;
 
-    if(texto) {
+    if (texto) {
         url += '?nombre=' + texto;
     }
 
@@ -37,7 +51,7 @@ async function listarProductos(texto) {
 
     console.log(respuesta);
 
-    if(!respuesta.ok) {
+    if (!respuesta.ok) {
         alert('No se ha encontrado ningún producto con esas características');
         respuesta = await fetch(URL_PRODUCTOS);
     }
@@ -95,11 +109,11 @@ async function cargarTabla() {
             <td>${p.nombre}</td>
             <td>${p.precio} €</td>
             <td>
-                <a href="admin/formulario.html" class="btn btn-sm btn-primary">
+                <a href="javascript:mostrarFormulario(${p.id})" class="btn btn-sm btn-primary">
                     <i class="bi bi-pencil-fill"></i>
                 </a>
 
-                <a href="admin/listado.html" class="btn btn-sm btn-danger">
+                <a href="javascript:borrarProducto(${p.id})" class="btn btn-sm btn-danger">
                     <i class="bi bi-trash-fill"></i>
                 </a>
 
@@ -115,7 +129,7 @@ async function cargarTabla() {
 function mostrarSeccion(id) {
     const secciones = document.querySelectorAll('main>section');
 
-    for(const seccion of secciones) {
+    for (const seccion of secciones) {
         seccion.style.display = 'none';
     }
 
