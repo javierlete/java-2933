@@ -105,9 +105,9 @@ async function cargarTabla() {
         const tr = document.createElement('tr');
 
         const htmlProducto = `
-            <td>${p.id}</td>
+            <td class="text-end">${p.id}</td>
             <td>${p.nombre}</td>
-            <td>${p.precio} €</td>
+            <td class="text-end">${p.precio} €</td>
             <td>
                 <a href="javascript:mostrarFormulario(${p.id})" class="btn btn-sm btn-primary">
                     <i class="bi bi-pencil-fill"></i>
