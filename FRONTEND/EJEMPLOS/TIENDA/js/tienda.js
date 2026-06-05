@@ -52,7 +52,7 @@ window.borrarProducto = async id => {
     await cargarTabla();
 };
 
-window.mostrarFormulario(2);
+window.mostrarProductos();
 
 form.addEventListener('submit', async e => {
     e.preventDefault();
