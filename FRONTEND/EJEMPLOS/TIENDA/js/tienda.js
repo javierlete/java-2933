@@ -1,6 +1,6 @@
 import { crearFormateadorUniversal } from "./formateadorUniversal.js";
 
-const formateador = crearFormateadorUniversal({ locale: 'es-ES'});
+const formateador = crearFormateadorUniversal({ locale: 'es-ES' });
 
 const URL_PRODUCTOS = 'https://6a1fe16be96c1d13b5868fb0.mockapi.io/api/v1/productos/';
 
