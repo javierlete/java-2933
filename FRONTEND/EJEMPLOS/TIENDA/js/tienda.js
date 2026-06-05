@@ -1,5 +1,5 @@
 import { crearFormateadorUniversal } from "./formateadorUniversal.js";
-import { objetoAFormulario } from "./formularios.js";
+import { formularioAObjeto, objetoAFormulario } from "./formularios.js";
 
 const formateador = crearFormateadorUniversal({ locale: 'es-ES' });
 
@@ -8,6 +8,7 @@ const URL_PRODUCTOS = 'https://6a1fe16be96c1d13b5868fb0.mockapi.io/api/v1/produc
 const listadoProductos = document.querySelector('#productos div');
 const formularioBusqueda = document.querySelector('#formulario-busqueda');
 const adminTbody = document.querySelector('#admin-listado tbody');
+const form = document.querySelector("#formulario form");
 
 window.mostrarProductos = async () => {
     await listarProductos();
@@ -23,8 +24,6 @@ window.mostrarFormulario = async id => {
     console.log('MOSTRAR FORMULARIO', id);
 
     mostrarSeccion('formulario');
-    
-    const form = document.querySelector("#formulario form");
 
     if (id) {
         const respuesta = await fetch(URL_PRODUCTOS + id);
@@ -54,6 +53,51 @@ window.borrarProducto = async id => {
 };
 
 window.mostrarFormulario(2);
+
+form.addEventListener('submit', async e => {
+    e.preventDefault();
+
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+        return;
+    }
+
+    form.classList.remove('was-validated');
+
+    console.log(form.id.value, form.nombre.value, form.precio.value, form.departamento.value);
+
+    const producto = formularioAObjeto(form);
+
+    console.log(producto);
+    
+    let respuesta;
+
+    if (!producto.id) {
+        delete producto.id;
+
+        respuesta = await fetch(URL_PRODUCTOS, {
+            method: 'POST',
+            body: JSON.stringify(producto),
+            headers: { 'Content-type': 'application/json' },
+        });
+    } else {
+        respuesta = await fetch(URL_PRODUCTOS + producto.id, {
+            method: 'PUT',
+            body: JSON.stringify(producto),
+            headers: { 'Content-type': 'application/json' },
+        });
+    }
+
+    console.log('RESPUESTA AL POST/PUT', respuesta);
+
+    const productoRecibido = await respuesta.json();
+
+    console.log('PRODUCTO RECIBIDO', productoRecibido);
+
+    form.reset();
+
+    mostrarAdminListado();
+});
 
 formularioBusqueda.addEventListener('submit', e => {
     e.preventDefault();
