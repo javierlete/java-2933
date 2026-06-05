@@ -81,6 +81,57 @@
                 </tfoot>
             </table>
         </section>
+
+        <section id="formulario">
+            <form action="admin/listado.html" class="needs-validation" novalidate>
+                <div class="row mb-3">
+                    <label for="id" class="col-sm-2 col-form-label">Id</label>
+                    <div class="col-sm">
+                        <input min="0" type="number" class="form-control" id="id" name="id">
+                        <div class="invalid-feedback">
+                            El Id debe ser positivo
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
+                    <div class="col-sm">
+                        <input required type="text" class="form-control" id="nombre" name="nombre">
+                        <div class="invalid-feedback">
+                            El nombre es obligatorio
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="precio" class="col-sm-2 col-form-label">Precio</label>
+                    <div class="col-sm">
+                        <input required min="0" type="number" step=".01" class="form-control" id="precio" name="precio">
+                        <div class="invalid-feedback">
+                            El precio es obligatorio y debe ser positivo
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label for="departamento" class="col-sm-2 col-form-label">Departamento</label>
+                    <div class="col-sm">
+                        <input required type="text" class="form-control" id="departamento" name="departamento">
+                        <div class="invalid-feedback">
+                            El departamento es obligatorio
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="offset-sm-2 col-sm">
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+
+            </form>
+        </section>
     </main>
 
     <footer class="p-2 text-bg-dark">

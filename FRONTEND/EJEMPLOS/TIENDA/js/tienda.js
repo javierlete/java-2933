@@ -1,4 +1,5 @@
 import { crearFormateadorUniversal } from "./formateadorUniversal.js";
+import { objetoAFormulario } from "./formularios.js";
 
 const formateador = crearFormateadorUniversal({ locale: 'es-ES' });
 
@@ -20,6 +21,26 @@ window.mostrarAdminListado = async () => {
 
 window.mostrarFormulario = async id => {
     console.log('MOSTRAR FORMULARIO', id);
+
+    mostrarSeccion('formulario');
+    
+    const form = document.querySelector("#formulario form");
+
+    if (id) {
+        const respuesta = await fetch(URL_PRODUCTOS + id);
+        const producto = await respuesta.json();
+
+        console.log(producto);
+
+        // form.id.value = producto.id;
+        // form.nombre.value = producto.nombre;
+        // form.precio.value = producto.precio;
+        // form.departamento.value = producto.departamento;
+
+        objetoAFormulario(producto, form);
+    } else {
+        form.reset();
+    }
 };
 
 window.borrarProducto = async id => {
@@ -32,7 +53,7 @@ window.borrarProducto = async id => {
     await cargarTabla();
 };
 
-window.mostrarAdminListado();
+window.mostrarFormulario(2);
 
 formularioBusqueda.addEventListener('submit', e => {
     e.preventDefault();
