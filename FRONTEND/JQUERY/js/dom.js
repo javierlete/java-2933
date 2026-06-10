@@ -1,63 +1,33 @@
 'use strict';
 
-const h1 = document.querySelector('h1');
+$(function () {
+    console.log($('h1').css('color', 'red').addClass('titulo').html('Ahora ya manipulamos la <em>pantalla</em>')[0]);
 
-console.log(h1);
-console.log(h1.innerHTML);
+    console.log($('#saludar').on('click', btnSaludarPulsado)[0]);
+    $('#saludar').on('click', function () { console.log('Hola'); });
+    $('#saludar').on('click', function () { console.log('No existían las arrow functions') });
 
-h1.innerHTML = 'Ahora ya manipulamos la <em>pantalla</em>';
-h1.style.color = 'red';
-h1.className = 'titulo';
+    function btnSaludarPulsado() {
+        alert('¡Holaaa!');
+    }
 
-const btnSaludar = document.querySelector('#saludar');
+    console.log($('#formulario-saludar').on('submit', function (e) {
+        e.preventDefault();
 
-console.log(btnSaludar);
+        $('#saludo').text('Hola ' + $('#nombre').val() + ' ¿cómo estás ' + $('#nombre').val() + '?')
+    })[0]);
 
-btnSaludar.addEventListener('click', btnSaludarPulsado);
-btnSaludar.addEventListener('click', function () { console.log('Hola'); });
-btnSaludar.addEventListener('click', () => console.log('Arrow function os saluda'));
+    $('#formulario-tareas').on('submit', function (e) {
+        e.preventDefault();
 
-function btnSaludarPulsado() {
-    alert('¡Holaaa!');
-}
+        $('#lista-tareas').append($('<li>').text($('#formulario-tareas [name=tarea]').val()));
 
-const formularioSaludar = document.querySelector('#formulario-saludar');
+        $('#formulario-tareas')[0].reset();
+    });
 
-console.log(formularioSaludar);
+    $('#vaciar-lista').on('click', function () {
+        $('#lista-tareas').empty();
+    });
 
-formularioSaludar.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const nombre = document.querySelector('#nombre').value;
-    const saludo = document.querySelector('#saludo');
-
-    saludo.textContent = `Hola ${formularioSaludar.nombre.value}, ¿cómo estás ${nombre}?`;
 });
 
-const formularioTareas = document.querySelector('#formulario-tareas');
-
-formularioTareas.addEventListener('submit', e => {
-    e.preventDefault();
-
-    const tarea = formularioTareas.tarea.value;
-
-    console.log(tarea);
-
-    const li = document.createElement('li');
-
-    li.textContent = tarea;
-
-    console.log(li);
-
-    const listaTareas = document.querySelector('#lista-tareas');
-
-    listaTareas.appendChild(li);
-
-    formularioTareas.reset();
-});
-
-const vaciarLista = document.querySelector('#vaciar-lista');
-
-vaciarLista.addEventListener('click', () => 
-    document.querySelector('#lista-tareas').innerHTML = ''
-);
