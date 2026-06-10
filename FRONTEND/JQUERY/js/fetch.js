@@ -1,64 +1,40 @@
-const ul = document.querySelector('ul');
+var URL = 'http://localhost:3000/productos/';
 
-const URL = 'http://localhost:3000/productos/';
+$(function () {
+    refrescarListado();
 
-await refrescarListado();
+    $('form').on('submit', function (e) {
+        e.preventDefault();
 
-const form = document.forms[0];
+        var producto = { nombre: $('#nombre').val() };
 
-form.addEventListener('submit', async e => {
-    e.preventDefault();
+        $.ajax(URL, { method: 'POST', data: producto, dataType: 'json' }).then(function (productoCreado) {
+            console.log(productoCreado);
+            $('#nombre').val('');
+            refrescarListado();
+        }).fail(function (error) { console.log(error); });
+    });
 
-    const producto = { nombre: form.nombre.value };
-
-    const options = {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(producto)
-    };
-
-    try {
-        const response = await fetch(URL, options);
-        const productoCreado = await response.json();
-
-        console.log(productoCreado);
-
-        form.reset();
-
-        await refrescarListado();
-    } catch (error) {
-        console.error(error);
-    }
 });
-async function refrescarListado() {
-    const respuesta = await fetch(URL);
 
-    console.log(respuesta);
+function refrescarListado() {
+    $.getJSON(URL).then(function (productos) {
+        console.log(productos);
 
-    const productos = await respuesta.json();
+        $('ul').empty();
 
-    console.log(productos);
-
-    ul.innerHTML = '';
-
-    for (const producto of productos) {
-        const li = document.createElement('li');
-
-        li.innerHTML = `${producto.nombre} <button onclick="javascript:borrar(${producto.id})">X</button>`; //JSON.stringify(producto);
-
-        ul.appendChild(li);
-    }
+        $(productos).each(function () {
+            $('<li>').html(this.nombre + ' <button onclick="javascript:borrar(' + this.id + ')">X</button>').appendTo('ul');
+        });
+    });
 }
 
-window.borrar = async function (id) {
+function borrar(id) {
     console.log('BORRAR', id);
 
-    try {
-        const response = await fetch(URL + id, { method: 'DELETE' });
-        console.log(response);
+    $.ajax(URL + id, { method: 'DELETE' }).then(function (respuesta) {
+        console.log(respuesta);
+        refrescarListado();
+    }).fail(function (error) { console.log(error); });
 
-        await refrescarListado();
-    } catch (error) {
-        console.error(error);
-    }
 }
