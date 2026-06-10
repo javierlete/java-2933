@@ -1,73 +1,59 @@
 'use strict';
 
-let op1, op, op2, resultado;
+var op1, op, op2, resultado;
 
-const calculadora = document.querySelector('#calculadora');
-const inputResultado = document.querySelector('#resultado');
-
-const etiquetas = [
+var etiquetas = [
     '7', '8', '9', '/',
     '4', '5', '6', 'X',
     '1', '2', '3', '-',
     '=', '0', 'C', '+',
 ];
 
-for (const etiqueta of etiquetas) {
-    const boton = document.createElement('button');
-    boton.textContent = etiqueta;
+$(function () {
+    $(etiquetas).each(function () {
+        var $boton = $('<button>').text(this);
 
-    if (etiqueta === '=') {
-        boton.className = 'destacado';
-        boton.addEventListener('click', ejecutarIgual);
-    } else if (etiqueta >= '0' && etiqueta <= '9') {
-        boton.className = 'numero';
-        boton.addEventListener('click', ejecutarNumero);
-    } else if(etiqueta === 'C') {
-        boton.addEventListener('click', ejecutarC);
-    } else {
-        boton.addEventListener('click', ejecutarOperacion);
+        if (this == '=') {
+            $boton.addClass('destacado').on('click', ejecutarIgual);
+        } else if (this >= '0' && this <= '9') {
+            $boton.addClass('numero').on('click', ejecutarNumero);
+        } else if (this == 'C') {
+            $boton.on('click', ejecutarC);
+        } else {
+            $boton.on('click', ejecutarOperacion);
+        }
+
+        console.log($boton[0]);
+
+        $('#calculadora').append($boton);
+    });
+
+    function ejecutarNumero(e) {
+        var resultado = $('#resultado').text();
+        $('#resultado').text((resultado != '0' ? resultado : '') + $(e.target).text());
     }
 
-    calculadora.appendChild(boton);
-}
-
-function ejecutarNumero(e) {
-    const etiqueta = e.target.textContent;
-    const pantalla = inputResultado.textContent;
-    
-    resultado = (pantalla !== '0' ? pantalla : '') + etiqueta;
-    
-    inputResultado.textContent = resultado;
-}
-
-function ejecutarC() {
-    resultado = 0;
-    
-    inputResultado.textContent = resultado;
-}
-
-function ejecutarOperacion(e) {
-    const etiqueta = e.target.textContent;
-    const pantalla = inputResultado.textContent;
-    
-    op1 = +pantalla; 
-    op = etiqueta; 
-    resultado = 0;
-
-    inputResultado.textContent = resultado;
-}
-
-function ejecutarIgual() {
-    const pantalla = inputResultado.textContent;
-    op2 = +pantalla;
-
-    switch (op) {
-        case '+': resultado = op1 + op2; break;
-        case '-': resultado = op1 - op2; break;
-        case 'X': resultado = op1 * op2; break;
-        case '/': resultado = op1 / op2; break;
-        default: resultado = 'ERROR';
+    function ejecutarC() {
+        $('#resultado').text(0);
     }
 
-    inputResultado.textContent = resultado;
-}
+    function ejecutarOperacion(e) {
+        op1 = +$('#resultado').text();
+        op = e.target.textContent;
+        ejecutarC();
+    }
+
+    function ejecutarIgual() {
+        op2 = +$('#resultado').text();
+
+        switch (op) {
+            case '+': resultado = op1 + op2; break;
+            case '-': resultado = op1 - op2; break;
+            case 'X': resultado = op1 * op2; break;
+            case '/': resultado = op1 / op2; break;
+            default: resultado = 'ERROR';
+        }
+
+        $('#resultado').text(resultado);
+    }
+});
