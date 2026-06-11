@@ -11,6 +11,8 @@
     <link href="imgs/cart4.svg" rel="icon">
 
     <script defer src="js/bootstrap.bundle.min.js"></script>
+
+    <script type="module" src="js/componentes.js"></script>
     <script type="module" src="js/tienda.js"></script>
 </head>
 
@@ -84,52 +86,11 @@
 
         <section id="formulario">
             <form novalidate>
-                <div class="row mb-3">
-                    <label for="id" class="col-sm-2 col-form-label">Id</label>
-                    <div class="col-sm">
-                        <input readonly type="number" class="form-control" id="id" name="id">
-                        <div class="invalid-feedback">
-                            El Id debe ser positivo
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
-                    <div class="col-sm">
-                        <input required type="text" class="form-control" id="nombre" name="nombre">
-                        <div class="invalid-feedback">
-                            El nombre es obligatorio
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="precio" class="col-sm-2 col-form-label">Precio</label>
-                    <div class="col-sm">
-                        <input required min="0" type="number" step=".01" class="form-control" id="precio" name="precio">
-                        <div class="invalid-feedback">
-                            El precio es obligatorio y debe ser positivo
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label for="departamento" class="col-sm-2 col-form-label">Departamento</label>
-                    <div class="col-sm">
-                        <input required type="text" class="form-control" id="departamento" name="departamento">
-                        <div class="invalid-feedback">
-                            El departamento es obligatorio
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="offset-sm-2 col-sm">
-                        <button type="submit" class="btn btn-primary">Guardar</button>
-                    </div>
-                </div>
-
+                <jl-label-input etiqueta="Id" identificador="id" tipo="number" atributos="readonly" error="El id debe ser positivo"></jl-label-input>
+                <jl-label-input etiqueta="Nombre" identificador="nombre" tipo="text" atributos="required" error="El nombre es obligatorio"></jl-label-input>
+                <jl-label-input etiqueta="Precio" identificador="precio" tipo="number" atributos="required min='0' step='.01'" error="El precio es obligatorio y debe ser positivo"></jl-label-input>
+                <jl-label-input etiqueta="Departamento" identificador="departamento" tipo="text" atributos="required" error="El departamento es obligatorio"></jl-label-input>
+                <jl-label-input etiqueta="Guardar" tipo="submit"></jl-label-input>
             </form>
         </section>
     </main>
