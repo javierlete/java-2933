@@ -9,25 +9,25 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class JdbcEjemplo {
+	private static final String URL = "jdbc:sqlite:basicos.db";
+	
+	private static final String SQL_SELECT = "SELECT * FROM productos"; // "Órdenes al conductor"
+	private static final String SQL_SELECT_ID = "SELECT * FROM productos WHERE id=?"; // "Órdenes al conductor"
+	private static final String SQL_INSERT = "INSERT INTO productos (nombre, precio) VALUES (?,?)"; // "Órdenes al conductor"
+	private static final String SQL_UPDATE = "UPDATE productos SET nombre=?, precio=? WHERE id=?"; // "Órdenes al conductor"
+	private static final String SQL_DELETE = "DELETE FROM productos WHERE id=?"; // "Órdenes al conductor"
+	
+	private static Connection con;
+	
 	public static void main(String[] args) throws SQLException {
-//		Scanner sc = new Scanner(System.in);
-
-		String url = "jdbc:sqlite:basicos.db";
-
-		String sqlSelect = "SELECT * FROM productos"; // "Órdenes al conductor"
-		String sqlSelectId = "SELECT * FROM productos WHERE id=?"; // "Órdenes al conductor"
-		String sqlInsert = "INSERT INTO productos (nombre, precio) VALUES (?,?)"; // "Órdenes al conductor"
-		String sqlUpdate = "UPDATE productos SET nombre=?, precio=? WHERE id=?"; // "Órdenes al conductor"
-		String sqlDelete = "DELETE FROM productos WHERE id=?"; // "Órdenes al conductor"
-
-		Connection con = DriverManager.getConnection(url); // "Carretera"
+		con = DriverManager.getConnection(URL); // "Carretera"
 		
-		listado("SELECT", con, sqlSelect);
+		listado("SELECT");
 
 		//System.out.print("Dime el id: ");
 		Long id = Long.parseLong("2"); //sc.nextLine());
 
-		PreparedStatement pst = con.prepareStatement(sqlSelectId);
+		PreparedStatement pst = con.prepareStatement(SQL_SELECT_ID);
 
 		pst.setLong(1, id);
 
@@ -37,54 +37,73 @@ public class JdbcEjemplo {
 			System.out.printf("%2s %-10s %5s\n", rs.getString("id"), rs.getString("nombre"), rs.getString("precio"));
 		}
 
-		pst = con.prepareStatement(sqlInsert);
+		rs.close();
+		pst.close();
+		
+		pst = con.prepareStatement(SQL_INSERT);
 		
 		pst.setString(1, "NUEVO");
 		pst.setBigDecimal(2, new BigDecimal("1234.12"));
 		
 		pst.executeUpdate();
 
-		listado("INSERT", con, sqlSelect);
+		pst.close();
 		
-		pst = con.prepareStatement(sqlUpdate);
+		listado("INSERT");
+		
+		pst = con.prepareStatement(SQL_UPDATE);
 		
 		pst.setString(1, "MODIFICADO");
 		pst.setBigDecimal(2, new BigDecimal("4321.21"));
 		pst.setLong(3, 5);
 		
 		pst.executeUpdate();
+
+		pst.close();
 		
-		listado("UPDATE", con, sqlSelect);
+		listado("UPDATE");
 		
-		pst = con.prepareStatement(sqlDelete);
+		pst = con.prepareStatement(SQL_DELETE);
 		
 		pst.setLong(1, 5);
 		
 		pst.executeUpdate();
 
-		listado("DELETE", con, sqlSelect);
+		pst.close();
+
+		listado("DELETE");
 		
-		resetearId(con);
+		resetearId();
+		
+		con.close();
 	}
 
-	private static void listado(String titulo, Connection con, String sqlSelect) throws SQLException {
+	private static void listado(String titulo) throws SQLException {
 		System.out.println("-----------------");
 		System.out.println(titulo);
 		System.out.println("-----------------");
 		System.out.println();
 		
 		Statement st = con.createStatement(); // "Camión"
-		ResultSet rs = st.executeQuery(sqlSelect); // "Cargamento"
+		ResultSet rs = st.executeQuery(SQL_SELECT); // "Cargamento"
 
 		while (rs.next()) { // De uno en uno mientras haya carga que procesar
-			System.out.printf("%2s %-10s %5s\n", rs.getString("id"), rs.getString("nombre"), rs.getString("precio"));
+			System.out.printf("%2d %-20s %,10.2f €\n", rs.getLong("id"), rs.getString("nombre"), rs.getBigDecimal("precio"));
 		}
 		
+		rs.close();
+		st.close();
+		
+		System.out.println();
+		System.out.println("FIN " + titulo);
+		System.out.println("-----------------");
 		System.out.println();
 	}
 
-	private static void resetearId(Connection con) throws SQLException {
+	private static void resetearId() throws SQLException {
 		Statement st = con.createStatement();
 		st.executeUpdate("UPDATE sqlite_sequence SET seq=4 WHERE name='productos'");
+		
+		st.close();
 	}
 }
