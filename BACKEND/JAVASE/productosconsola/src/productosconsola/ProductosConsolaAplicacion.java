@@ -6,7 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
+
+import static bibliotecas.Consola.*;
 
 public class ProductosConsolaAplicacion {
 	private static final int OPCION_SALIR = 0;
@@ -23,8 +24,6 @@ public class ProductosConsolaAplicacion {
 	private static final String SQL_INSERT = "INSERT INTO productos (nombre, precio) VALUES (?, ?)";
 	private static final String SQL_UPDATE = "UPDATE productos SET nombre=?, precio=? WHERE id=?";
 	private static final String SQL_DELETE = "DELETE FROM productos WHERE id=?";
-
-	private static final Scanner sc = new Scanner(System.in);
 
 	private static Connection con = null;
 
@@ -50,8 +49,6 @@ public class ProductosConsolaAplicacion {
 			System.out.println("Error no controlado en la aplicación");
 			System.out.println(e.getMessage());
 		} finally {
-			sc.close();
-
 			if (con != null) {
 				try {
 					con.close();
@@ -231,22 +228,5 @@ public class ProductosConsolaAplicacion {
 		System.out.printf(FORMATO_REGISTRO, "Id", rs.getLong("id"));
 		System.out.printf(FORMATO_REGISTRO, "Nombre", rs.getString("nombre"));
 		System.out.printf(FORMATO_REGISTRO, "Precio", rs.getBigDecimal("precio"));
-	}
-
-	private static String pedirString(String mensaje) {
-		System.out.print(mensaje + ": ");
-		return sc.nextLine();
-	}
-
-	private static Long pedirLong(String mensaje) {
-		return Long.parseLong(pedirString(mensaje));
-	}
-
-	private static BigDecimal pedirBigDecimal(String mensaje) {
-		return new BigDecimal(pedirString(mensaje));
-	}
-
-	private static int pedirInt(String mensaje) {
-		return Integer.parseInt(pedirString(mensaje));
 	}
 }
