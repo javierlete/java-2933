@@ -22,20 +22,24 @@ public class ProductosConsolaAplicacion {
 	private static final String SQL_UPDATE = "UPDATE productos SET nombre=?, precio=? WHERE id=?";
 	private static final String SQL_DELETE = "DELETE FROM productos WHERE id=?";
 
+	private static final Scanner sc = new Scanner(System.in);
+	
+	private static Connection con = null;
+	
 	public static void main(String[] args) {
-		try (Connection con = DriverManager.getConnection(JDBC_URL);
-				Scanner sc = new Scanner(System.in)) {
-
+		try {
+			con = DriverManager.getConnection(JDBC_URL);
+			
 			int opcion;
 
 			do {
 				mostrarMenu();
 
-				opcion = pedirOpcion(sc);
+				opcion = pedirOpcion();
 
 				System.out.println();
 
-				procesarOpcion(con, sc, opcion);
+				procesarOpcion(opcion);
 
 				System.out.println();
 			} while (opcion != 0);
@@ -43,6 +47,16 @@ public class ProductosConsolaAplicacion {
 		} catch (NumberFormatException | SQLException e) {
 			System.out.println("Error no controlado en la aplicación");
 			System.out.println(e.getMessage());
+		} finally {
+			sc.close();
+			
+			if(con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					System.out.println("Ha habido un error al cerrar la conexión");
+				}
+			}
 		}
 	}
 
@@ -63,29 +77,29 @@ public class ProductosConsolaAplicacion {
 				""");
 	}
 
-	private static int pedirOpcion(Scanner sc) {
+	private static int pedirOpcion() {
 		int opcion;
 		System.out.print("Selecciona una opción: ");
 		opcion = Integer.parseInt(sc.nextLine());
 		return opcion;
 	}
 
-	private static void procesarOpcion(Connection con, Scanner sc, int opcion) {
+	private static void procesarOpcion(int opcion) {
 		switch (opcion) {
 		case 1:
-			listado(con);
+			listado();
 			break;
 		case 2:
-			buscarPorId(con, sc);
+			buscarPorId();
 			break;
 		case 3:
-			insertar(con, sc);
+			insertar();
 			break;
 		case 4:
-			modificar(con, sc);
+			modificar();
 			break;
 		case 5:
-			borrar(con, sc);
+			borrar();
 			break;
 		case 0:
 			System.out.println("Gracias por usar el programa");
@@ -95,7 +109,7 @@ public class ProductosConsolaAplicacion {
 		}
 	}
 
-	private static void listado(Connection con) {
+	private static void listado() {
 		System.out.println("LISTADO\n");
 
 		System.out.printf(FORMATO_CABECERAS, "Id", "Nombre", "Precio");
@@ -113,7 +127,7 @@ public class ProductosConsolaAplicacion {
 		}
 	}
 
-	private static void buscarPorId(Connection con, Scanner sc) {
+	private static void buscarPorId() {
 		System.out.println("BUSCAR POR ID\n");
 
 		System.out.print("Dime el id: ");
@@ -139,7 +153,7 @@ public class ProductosConsolaAplicacion {
 		}
 	}
 
-	private static void insertar(Connection con, Scanner sc) {
+	private static void insertar() {
 		System.out.println("INSERTAR\n");
 
 		System.out.print("Nombre: ");
@@ -166,7 +180,7 @@ public class ProductosConsolaAplicacion {
 		}
 	}
 
-	private static void modificar(Connection con, Scanner sc) {
+	private static void modificar() {
 		System.out.println("MODIFICAR\n");
 
 		System.out.print("Id: ");
@@ -197,7 +211,7 @@ public class ProductosConsolaAplicacion {
 		}
 	}
 
-	private static void borrar(Connection con, Scanner sc) {
+	private static void borrar() {
 		System.out.println("BORRAR\n");
 
 		System.out.print("Id: ");
