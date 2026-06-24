@@ -9,8 +9,10 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class ProductosConsolaAplicacion {
+	private static final int OPCION_SALIR = 0;
+
 	private static final String JDBC_URL = "jdbc:sqlite:productosconsola.db";
-	
+
 	private static final String FORMATO_CABECERAS = "%2s %-20s %12s\n";
 	private static final String FORMATO_LINEA = "%2d %-20s %,10.2f €\n";
 	private static final String FORMATO_REGISTRO = "%6s: %s\n";
@@ -23,13 +25,13 @@ public class ProductosConsolaAplicacion {
 	private static final String SQL_DELETE = "DELETE FROM productos WHERE id=?";
 
 	private static final Scanner sc = new Scanner(System.in);
-	
+
 	private static Connection con = null;
-	
+
 	public static void main(String[] args) {
 		try {
 			con = DriverManager.getConnection(JDBC_URL);
-			
+
 			int opcion;
 
 			do {
@@ -42,15 +44,15 @@ public class ProductosConsolaAplicacion {
 				procesarOpcion(opcion);
 
 				System.out.println();
-			} while (opcion != 0);
+			} while (opcion != OPCION_SALIR);
 
 		} catch (NumberFormatException | SQLException e) {
 			System.out.println("Error no controlado en la aplicación");
 			System.out.println(e.getMessage());
 		} finally {
 			sc.close();
-			
-			if(con != null) {
+
+			if (con != null) {
 				try {
 					con.close();
 				} catch (SQLException e) {
@@ -64,24 +66,21 @@ public class ProductosConsolaAplicacion {
 		System.out.println("""
 				MENU
 				====
-	
+
 				1. Listado
 				2. Buscar por id
-	
+
 				3. Insertar
 				4. Modificar
 				5. Borrar
-	
+
 				0. Salir
-	
+
 				""");
 	}
 
 	private static int pedirOpcion() {
-		int opcion;
-		System.out.print("Selecciona una opción: ");
-		opcion = Integer.parseInt(sc.nextLine());
-		return opcion;
+		return pedirInt("Selecciona una opción: ");
 	}
 
 	private static void procesarOpcion(int opcion) {
@@ -112,16 +111,8 @@ public class ProductosConsolaAplicacion {
 	private static void listado() {
 		System.out.println("LISTADO\n");
 
-		System.out.printf(FORMATO_CABECERAS, "Id", "Nombre", "Precio");
-		System.out.printf(FORMATO_CABECERAS, "--", "------", "------");
-
-		try (PreparedStatement pst = con.prepareStatement(SQL_SELECT);
-				ResultSet rs = pst.executeQuery()) {
-
-			while (rs.next()) {
-				System.out.printf(FORMATO_LINEA, rs.getLong("id"), rs.getString("nombre"),
-						rs.getBigDecimal("precio"));
-			}
+		try (PreparedStatement pst = con.prepareStatement(SQL_SELECT); ResultSet rs = pst.executeQuery()) {
+			mostrarListado(rs);
 		} catch (SQLException e) {
 			System.out.println("Error al hacer el listado");
 		}
@@ -130,8 +121,7 @@ public class ProductosConsolaAplicacion {
 	private static void buscarPorId() {
 		System.out.println("BUSCAR POR ID\n");
 
-		System.out.print("Dime el id: ");
-		Long id = Long.parseLong(sc.nextLine());
+		Long id = pedirLong("Dime el id");
 
 		System.out.println();
 
@@ -141,9 +131,7 @@ public class ProductosConsolaAplicacion {
 
 			try (ResultSet rs = pst.executeQuery()) {
 				if (rs.next()) {
-					System.out.printf(FORMATO_REGISTRO, "Id", rs.getLong("id"));
-					System.out.printf(FORMATO_REGISTRO, "Nombre", rs.getString("nombre"));
-					System.out.printf(FORMATO_REGISTRO, "Precio", rs.getBigDecimal("precio"));
+					mostrarRegistro(rs);
 				} else {
 					System.out.println("No se ha encontrado el id " + id);
 				}
@@ -156,14 +144,10 @@ public class ProductosConsolaAplicacion {
 	private static void insertar() {
 		System.out.println("INSERTAR\n");
 
-		System.out.print("Nombre: ");
-		String nombre = sc.nextLine();
+		String nombre = pedirString("Nombre");
+		BigDecimal precio = pedirBigDecimal("Precio");
 
-		System.out.print("Precio: ");
-		BigDecimal precio = new BigDecimal(sc.nextLine());
-
-		try (PreparedStatement pst = con
-				.prepareStatement(SQL_INSERT)) {
+		try (PreparedStatement pst = con.prepareStatement(SQL_INSERT)) {
 
 			pst.setString(1, nombre);
 			pst.setBigDecimal(2, precio);
@@ -183,17 +167,11 @@ public class ProductosConsolaAplicacion {
 	private static void modificar() {
 		System.out.println("MODIFICAR\n");
 
-		System.out.print("Id: ");
-		Long id = Long.parseLong(sc.nextLine());
+		Long id = pedirLong("Id");
+		String nombre = pedirString("Nombre");
+		BigDecimal precio = pedirBigDecimal("Precio");
 
-		System.out.print("Nombre: ");
-		String nombre = sc.nextLine();
-
-		System.out.print("Precio: ");
-		BigDecimal precio = new BigDecimal(sc.nextLine());
-
-		try (PreparedStatement pst = con
-				.prepareStatement(SQL_UPDATE)) {
+		try (PreparedStatement pst = con.prepareStatement(SQL_UPDATE)) {
 
 			pst.setString(1, nombre);
 			pst.setBigDecimal(2, precio);
@@ -214,8 +192,7 @@ public class ProductosConsolaAplicacion {
 	private static void borrar() {
 		System.out.println("BORRAR\n");
 
-		System.out.print("Id: ");
-		Long id = Long.parseLong(sc.nextLine());
+		Long id = pedirLong("Id");
 
 		try (PreparedStatement pst = con.prepareStatement(SQL_DELETE)) {
 
@@ -231,5 +208,45 @@ public class ProductosConsolaAplicacion {
 		} catch (SQLException e) {
 			System.out.println("Error al ejecutar el borrado");
 		}
+	}
+
+	private static void mostrarListado(ResultSet rs) throws SQLException {
+		mostrarCabeceras();
+
+		while (rs.next()) {
+			mostrarLinea(rs);
+		}
+	}
+
+	private static void mostrarCabeceras() {
+		System.out.printf(FORMATO_CABECERAS, "Id", "Nombre", "Precio");
+		System.out.printf(FORMATO_CABECERAS, "--", "------", "------");
+	}
+
+	private static void mostrarLinea(ResultSet rs) throws SQLException {
+		System.out.printf(FORMATO_LINEA, rs.getLong("id"), rs.getString("nombre"), rs.getBigDecimal("precio"));
+	}
+
+	private static void mostrarRegistro(ResultSet rs) throws SQLException {
+		System.out.printf(FORMATO_REGISTRO, "Id", rs.getLong("id"));
+		System.out.printf(FORMATO_REGISTRO, "Nombre", rs.getString("nombre"));
+		System.out.printf(FORMATO_REGISTRO, "Precio", rs.getBigDecimal("precio"));
+	}
+
+	private static String pedirString(String mensaje) {
+		System.out.print(mensaje + ": ");
+		return sc.nextLine();
+	}
+
+	private static Long pedirLong(String mensaje) {
+		return Long.parseLong(pedirString(mensaje));
+	}
+
+	private static BigDecimal pedirBigDecimal(String mensaje) {
+		return new BigDecimal(pedirString(mensaje));
+	}
+
+	private static int pedirInt(String mensaje) {
+		return Integer.parseInt(pedirString(mensaje));
 	}
 }
