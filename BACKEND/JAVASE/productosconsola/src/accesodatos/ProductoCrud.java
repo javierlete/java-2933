@@ -10,7 +10,11 @@ import java.util.ArrayList;
 import dtos.Producto;
 
 public class ProductoCrud {
-	private static final String JDBC_URL = "jdbc:sqlite:productosconsola.db";
+//	private static final String JDBC_URL = "jdbc:sqlite:productosconsola.db";
+	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/productosconsola";
+
+	private static final String JDBC_USER = "root";
+	private static final String JDBC_PASS = "";
 
 	private static final String SQL_SELECT = "SELECT * FROM productos";
 	private static final String SQL_SELECT_ID = "SELECT * FROM productos WHERE id=?";
@@ -20,7 +24,7 @@ public class ProductoCrud {
 	private static final String SQL_DELETE = "DELETE FROM productos WHERE id=?";
 
 	public static ArrayList<Producto> obtenerTodos() {
-		try (Connection con = DriverManager.getConnection(JDBC_URL);
+		try (Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_SELECT);
 				ResultSet rs = pst.executeQuery()) {
 			ArrayList<Producto> productos = new ArrayList<Producto>();
@@ -37,7 +41,7 @@ public class ProductoCrud {
 	}
 
 	public static Producto obtenerPorId(Long id) {
-		try (Connection con = DriverManager.getConnection(JDBC_URL);
+		try (Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_SELECT_ID)) {
 
 			pst.setLong(1, id);
@@ -57,7 +61,7 @@ public class ProductoCrud {
 	}
 
 	public static void insertar(Producto producto) {
-		try (Connection con = DriverManager.getConnection(JDBC_URL);
+		try (Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_INSERT)) {
 
 			pst.setString(1, producto.nombre());
@@ -74,7 +78,7 @@ public class ProductoCrud {
 	}
 
 	public static void modificar(Producto producto) {
-		try (Connection con = DriverManager.getConnection(JDBC_URL);
+		try (Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_UPDATE)) {
 
 			pst.setString(1, producto.nombre());
@@ -92,7 +96,7 @@ public class ProductoCrud {
 	}
 
 	public static void borrar(Long id) {
-		try (Connection con = DriverManager.getConnection(JDBC_URL);
+		try (Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
 				PreparedStatement pst = con.prepareStatement(SQL_DELETE)) {
 
 			pst.setLong(1, id);
