@@ -1,4 +1,4 @@
-package productosconsola;
+package presentacion;
 
 import static bibliotecas.Consola.pedirBigDecimal;
 import static bibliotecas.Consola.pedirInt;
