@@ -1,36 +1,25 @@
 package productosconsola;
 
-import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import static bibliotecas.Consola.pedirBigDecimal;
+import static bibliotecas.Consola.pedirInt;
+import static bibliotecas.Consola.pedirLong;
+import static bibliotecas.Consola.pedirString;
 
-import static bibliotecas.Consola.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
+import accesodatos.ProductoCrud;
+import dtos.Producto;
 
 public class ProductosConsolaAplicacion {
 	private static final int OPCION_SALIR = 0;
-
-	private static final String JDBC_URL = "jdbc:sqlite:productosconsola.db";
 
 	private static final String FORMATO_CABECERAS = "%2s %-20s %12s\n";
 	private static final String FORMATO_LINEA = "%2d %-20s %,10.2f €\n";
 	private static final String FORMATO_REGISTRO = "%6s: %s\n";
 
-	private static final String SQL_SELECT = "SELECT * FROM productos";
-	private static final String SQL_SELECT_ID = "SELECT * FROM productos WHERE id=?";
-
-	private static final String SQL_INSERT = "INSERT INTO productos (nombre, precio) VALUES (?, ?)";
-	private static final String SQL_UPDATE = "UPDATE productos SET nombre=?, precio=? WHERE id=?";
-	private static final String SQL_DELETE = "DELETE FROM productos WHERE id=?";
-
-	private static Connection con = null;
-
 	public static void main(String[] args) {
 		try {
-			con = DriverManager.getConnection(JDBC_URL);
-
 			int opcion;
 
 			do {
@@ -40,22 +29,19 @@ public class ProductosConsolaAplicacion {
 
 				System.out.println();
 
-				procesarOpcion(opcion);
+				try {
+					procesarOpcion(opcion);
+				} catch (Exception e) {
+					System.out.println("Error en la operación de base de datos");
+					System.out.println(e.getMessage());
+				}
 
 				System.out.println();
 			} while (opcion != OPCION_SALIR);
 
-		} catch (NumberFormatException | SQLException e) {
+		} catch (Exception e) {
 			System.out.println("Error no controlado en la aplicación");
 			System.out.println(e.getMessage());
-		} finally {
-			if (con != null) {
-				try {
-					con.close();
-				} catch (SQLException e) {
-					System.out.println("Ha habido un error al cerrar la conexión");
-				}
-			}
 		}
 	}
 
@@ -77,7 +63,7 @@ public class ProductosConsolaAplicacion {
 	}
 
 	private static int pedirOpcion() {
-		return pedirInt("Selecciona una opción: ");
+		return pedirInt("Selecciona una opción");
 	}
 
 	private static void procesarOpcion(int opcion) {
@@ -108,11 +94,9 @@ public class ProductosConsolaAplicacion {
 	private static void listado() {
 		System.out.println("LISTADO\n");
 
-		try (PreparedStatement pst = con.prepareStatement(SQL_SELECT); ResultSet rs = pst.executeQuery()) {
-			mostrarListado(rs);
-		} catch (SQLException e) {
-			System.out.println("Error al hacer el listado");
-		}
+		ArrayList<Producto> productos = ProductoCrud.obtenerTodos();
+
+		mostrarListado(productos);
 	}
 
 	private static void buscarPorId() {
@@ -122,43 +106,26 @@ public class ProductosConsolaAplicacion {
 
 		System.out.println();
 
-		try (PreparedStatement pst = con.prepareStatement(SQL_SELECT_ID)) {
+		Producto producto = ProductoCrud.obtenerPorId(id);
 
-			pst.setLong(1, id);
-
-			try (ResultSet rs = pst.executeQuery()) {
-				if (rs.next()) {
-					mostrarRegistro(rs);
-				} else {
-					System.out.println("No se ha encontrado el id " + id);
-				}
-			}
-		} catch (SQLException e) {
-			System.out.println("Error al buscar el producto por id");
+		if (producto != null) {
+			mostrarProducto(producto);
+		} else {
+			System.out.println("No se ha encontrado el id " + id);
 		}
 	}
 
 	private static void insertar() {
 		System.out.println("INSERTAR\n");
-
+	
 		String nombre = pedirString("Nombre");
 		BigDecimal precio = pedirBigDecimal("Precio");
-
-		try (PreparedStatement pst = con.prepareStatement(SQL_INSERT)) {
-
-			pst.setString(1, nombre);
-			pst.setBigDecimal(2, precio);
-
-			int numeroRegistrosModificados = pst.executeUpdate();
-
-			if (numeroRegistrosModificados == 1) {
-				System.out.println("Inserción correcta");
-			} else {
-				System.out.println("Se han modificado " + numeroRegistrosModificados);
-			}
-		} catch (SQLException e) {
-			System.out.println("Error al hacer la inserción");
-		}
+	
+		Producto producto = new Producto(null, nombre, precio);
+		
+		ProductoCrud.insertar(producto);
+		
+		System.out.println("Inserción correcta");
 	}
 
 	private static void modificar() {
@@ -168,22 +135,11 @@ public class ProductosConsolaAplicacion {
 		String nombre = pedirString("Nombre");
 		BigDecimal precio = pedirBigDecimal("Precio");
 
-		try (PreparedStatement pst = con.prepareStatement(SQL_UPDATE)) {
+		Producto producto = new Producto(id, nombre, precio);
 
-			pst.setString(1, nombre);
-			pst.setBigDecimal(2, precio);
-			pst.setLong(3, id);
+		ProductoCrud.modificar(producto);
 
-			int numeroRegistrosModificados = pst.executeUpdate();
-
-			if (numeroRegistrosModificados == 1) {
-				System.out.println("Modificación correcta");
-			} else {
-				System.out.println("Se han modificado " + numeroRegistrosModificados);
-			}
-		} catch (SQLException e) {
-			System.out.println("Error al hacer la modificación");
-		}
+		System.out.println("Modificación correcta");
 	}
 
 	private static void borrar() {
@@ -191,27 +147,16 @@ public class ProductosConsolaAplicacion {
 
 		Long id = pedirLong("Id");
 
-		try (PreparedStatement pst = con.prepareStatement(SQL_DELETE)) {
+		ProductoCrud.borrar(id);
 
-			pst.setLong(1, id);
-
-			int numeroRegistrosModificados = pst.executeUpdate();
-
-			if (numeroRegistrosModificados == 1) {
-				System.out.println("Borrado correcto");
-			} else {
-				System.out.println("Se han modificado " + numeroRegistrosModificados);
-			}
-		} catch (SQLException e) {
-			System.out.println("Error al ejecutar el borrado");
-		}
+		System.out.println("Borrado correcto");
 	}
 
-	private static void mostrarListado(ResultSet rs) throws SQLException {
+	private static void mostrarListado(ArrayList<Producto> productos) {
 		mostrarCabeceras();
 
-		while (rs.next()) {
-			mostrarLinea(rs);
+		for(Producto producto: productos) {
+			mostrarLinea(producto);
 		}
 	}
 
@@ -220,13 +165,15 @@ public class ProductosConsolaAplicacion {
 		System.out.printf(FORMATO_CABECERAS, "--", "------", "------");
 	}
 
-	private static void mostrarLinea(ResultSet rs) throws SQLException {
-		System.out.printf(FORMATO_LINEA, rs.getLong("id"), rs.getString("nombre"), rs.getBigDecimal("precio"));
+	private static void mostrarLinea(Producto producto) {
+		System.out.printf(FORMATO_LINEA, producto.id(), producto.nombre(), producto.precio());
 	}
 
-	private static void mostrarRegistro(ResultSet rs) throws SQLException {
-		System.out.printf(FORMATO_REGISTRO, "Id", rs.getLong("id"));
-		System.out.printf(FORMATO_REGISTRO, "Nombre", rs.getString("nombre"));
-		System.out.printf(FORMATO_REGISTRO, "Precio", rs.getBigDecimal("precio"));
+	private static void mostrarProducto(Producto producto) {
+		System.out.printf(FORMATO_REGISTRO, "Id", producto.id());
+		System.out.printf(FORMATO_REGISTRO, "Nombre", producto.nombre());
+		System.out.printf(FORMATO_REGISTRO, "Precio", producto.precio());
 	}
+
+	
 }
