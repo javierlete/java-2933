@@ -1,11 +1,12 @@
 package presentacion;
 
-import static bibliotecas.Consola.pedirInt;
-import static bibliotecas.Consola.pl;
+import static bibliotecas.Consola.*;
 
 import java.util.ArrayList;
 
+import accesodatos.RolCrud;
 import accesodatos.UsuarioCrud;
+import dtos.Rol;
 import dtos.Usuario;
 
 public class UsuariosConsolaAplicacion {
@@ -64,11 +65,33 @@ public class UsuariosConsolaAplicacion {
 	}
 
 	private static void buscarPorEmail() {
-		// TODO Auto-generated method stub
+		String email = pedirString("Email");
+		
+		Usuario usuario = UsuarioCrud.obtenerPorEmail(email);
+		
+		if(usuario != null) {
+			pl(usuario);
+		} else {
+			System.out.println("No se ha encontrado el usuario");
+		}
 	}
 
 	private static void alta() {
-		// TODO Auto-generated method stub
+		String nombre = pedirString("Nombre");
+		String email = pedirString("Email");
+		String password = pedirString("Contraseña");
+		
+		ArrayList<Rol> roles = RolCrud.obtenerTodos();
+		
+		for(Rol rol: roles) {
+			pf("%2s: %s\n", rol.id(), rol.nombre());
+		}
+		
+		Long rolId = pedirLong("Elige un id de rol");
+		
+		Usuario usuario = new Usuario(null, nombre, email, password, rolId, null);
+		
+		UsuarioCrud.insertar(usuario);
 	}
 
 	private static void modificacion() {
