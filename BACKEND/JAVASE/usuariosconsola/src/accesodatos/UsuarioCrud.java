@@ -14,18 +14,23 @@ public class UsuarioCrud {
 	private static final String JDBC_USER = "amazonia_app";
 	private static final String JDBC_PASS = "app";
 
+	private static final String SQL_SELECT = """
+			SELECT u.id AS u_id, u.email AS u_email, u.password AS u_password, u.nombre AS u_nombre, r.nombre AS r_nombre
+			FROM usuarios u
+			JOIN roles r ON u.roles_id = r.id
+			""";
+
 	public static ArrayList<Usuario> obtenerTodos() {
-		try (PreparedStatement pst = crearSentencia("SELECT * FROM usuarios");
-				ResultSet rs = pst.executeQuery()) {
+		try (PreparedStatement pst = crearSentencia(SQL_SELECT); ResultSet rs = pst.executeQuery()) {
 			ArrayList<Usuario> usuarios = new ArrayList<>();
 
 			while (rs.next()) {
-				Usuario usuario = new Usuario(rs.getLong("id"), rs.getString("nombre"), rs.getString("email"),
-						rs.getString("password"));
-				
+				Usuario usuario = new Usuario(rs.getLong("u_id"), rs.getString("u_nombre"), rs.getString("u_email"),
+						rs.getString("u_password"), rs.getString("r_nombre"));
+
 				usuarios.add(usuario);
 			}
-			
+
 			return usuarios;
 		} catch (SQLException e) {
 			throw new RuntimeException("No se ha podido leer el listado", e);
@@ -36,7 +41,7 @@ public class UsuarioCrud {
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
 			PreparedStatement pst = con.prepareStatement(sql);
-			
+
 			return pst;
 		} catch (SQLException e) {
 			throw new RuntimeException("No se ha podido conectar a la base de datos", e);
