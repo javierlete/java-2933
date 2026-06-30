@@ -53,6 +53,7 @@ public class UsuariosConsolaAplicacion {
 		case 4 -> modificacion();
 		case 5 -> baja();
 		case SALIR -> pl("Gracias por usar esta aplicación");
+		default -> pl("Opción incorrecta");
 		}
 	}
 

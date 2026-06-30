@@ -32,6 +32,20 @@ public class Consola {
 	}
 
 	public static int pedirInt(String mensaje) {
-		return Integer.parseInt(pedirString(mensaje));
+		int valor = 0;
+		
+		boolean estaBien = false;
+		
+		do {
+			try {
+				valor = Integer.parseInt(pedirString(mensaje));
+				
+				estaBien = true;
+			} catch (NumberFormatException e) {
+				pl("No es un número válido");
+			} 
+		} while (!estaBien);
+		
+		return valor;
 	}
 }
