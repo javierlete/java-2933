@@ -10,11 +10,21 @@ import java.util.ArrayList;
 import dtos.Rol;
 
 public class RolCrud {
+	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/amazonia";
 	private static final String JDBC_USER = "amazonia_app";
 	private static final String JDBC_PASS = "app";
 
 	private static final String SQL_SELECT = "SELECT * FROM roles";
+	
+	static {
+		try {
+			Class.forName(JDBC_DRIVER);
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("No se ha encontrado el driver " + JDBC_DRIVER, e);
+		}
+	}
+	
 	
 	private static PreparedStatement crearSentencia(String sql) {
 		try {
