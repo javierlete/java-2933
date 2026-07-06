@@ -33,23 +33,31 @@
 			</div>
 		</div>
 	</nav>
-	<div class="row row-cols-1 row-cols-md-3 g-4">
-		<c:forEach begin="1" end="10" var="i">
-			<div class="col">
-				<div class="card h-100">
-					<img src="https://picsum.photos/id/${i}/400/300" class="card-img-top"
-						alt="...">
-					<div class="card-body">
-						<h5 class="card-title">Producto ${i}</h5>
-						<p class="card-text">El mejor del mundo.</p>
-					</div>
-					<div class="card-footer">
-						<small class="text-body-secondary">${i*100} €</small>
+
+	<main class="container my-5">
+
+<!-- 		<p>${productos}</p> -->
+
+		<div class="row row-cols-1 row-cols-md-3 g-4">
+			<c:forEach items="${productos}" var="p">
+				<div class="col">
+					<div class="card h-100">
+						<img src="https://picsum.photos/id/${p.id}/400/300"
+							class="card-img-top" alt="...">
+						<div class="card-body">
+							<h5 class="card-title">${p.nombre}</h5>
+							<p class="card-text">${p.descripcion}</p>
+						</div>
+						<div class="card-footer">
+							<small class="text-body-secondary">${p.precio} €</small>
+						</div>
 					</div>
 				</div>
-			</div>
-		</c:forEach>
-	</div>
+			</c:forEach>
+		</div>
+
+	</main>
+	
 	<footer class="p-2 text-bg-dark"> &copy;2026 Javier Lete </footer>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
