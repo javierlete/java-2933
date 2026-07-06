@@ -1,7 +1,7 @@
 package accesodatos;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import static bibliotecas.accesodatos.BaseDeDatos.*;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,32 +10,7 @@ import java.util.ArrayList;
 import dtos.Rol;
 
 public class RolCrud {
-	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/amazonia";
-	private static final String JDBC_USER = "amazonia_app";
-	private static final String JDBC_PASS = "app";
-
 	private static final String SQL_SELECT = "SELECT * FROM roles";
-	
-	static {
-		try {
-			Class.forName(JDBC_DRIVER);
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("No se ha encontrado el driver " + JDBC_DRIVER, e);
-		}
-	}
-	
-	
-	private static PreparedStatement crearSentencia(String sql) {
-		try {
-			Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
-			PreparedStatement pst = con.prepareStatement(sql);
-	
-			return pst;
-		} catch (SQLException e) {
-			throw new RuntimeException("No se ha podido conectar a la base de datos", e);
-		}
-	}
 
 	public static ArrayList<Rol> obtenerTodos() {
 		try (PreparedStatement pst = crearSentencia(SQL_SELECT); ResultSet rs = pst.executeQuery()) {

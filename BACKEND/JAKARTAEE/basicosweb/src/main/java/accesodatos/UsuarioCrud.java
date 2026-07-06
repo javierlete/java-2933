@@ -1,7 +1,7 @@
 package accesodatos;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import static bibliotecas.accesodatos.BaseDeDatos.*;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,11 +10,6 @@ import java.util.ArrayList;
 import dtos.Usuario;
 
 public class UsuarioCrud {
-	private static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-	private static final String JDBC_URL = "jdbc:mysql://localhost:3306/amazonia";
-	private static final String JDBC_USER = "amazonia_app";
-	private static final String JDBC_PASS = "app";
-
 	private static final String SQL_SELECT = """
 			SELECT 
 				u.id AS u_id, u.email AS u_email, u.password AS u_password, u.nombre AS u_nombre, 
@@ -28,25 +23,6 @@ public class UsuarioCrud {
 	private static final String SQL_INSERT = "INSERT INTO usuarios (nombre, email, password, roles_id) VALUES (?,?,?,?)";
 	private static final String SQL_UPDATE = "UPDATE usuarios SET nombre=?, email=?, password=?, roles_id=? WHERE id=?";
 	private static final String SQL_DELETE = "DELETE FROM usuarios WHERE id=?";
-	
-	static {
-		try {
-			Class.forName(JDBC_DRIVER);
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("No se ha encontrado el driver " + JDBC_DRIVER, e);
-		}
-	}
-	
-	private static PreparedStatement crearSentencia(String sql) {
-		try {
-			Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
-			PreparedStatement pst = con.prepareStatement(sql);
-	
-			return pst;
-		} catch (SQLException e) {
-			throw new RuntimeException("No se ha podido conectar a la base de datos", e);
-		}
-	}
 
 	public static ArrayList<Usuario> obtenerTodos() {
 		try (PreparedStatement pst = crearSentencia(SQL_SELECT); ResultSet rs = pst.executeQuery()) {
