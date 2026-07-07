@@ -1,4 +1,4 @@
-package com.amazonia.presentacion.controladores;
+package com.amazonia.presentacion.controladores.admin;
 
 import java.io.IOException;
 import java.util.ArrayList;
