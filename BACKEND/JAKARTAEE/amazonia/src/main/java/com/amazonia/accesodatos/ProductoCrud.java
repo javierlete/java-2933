@@ -26,4 +26,22 @@ public class ProductoCrud {
 			throw new RuntimeException("Error al obtener los productos");
 		}
 	}
+
+	public static Producto obtenerPorId(Long id) {
+		try (PreparedStatement pst = BaseDeDatos.crearSentencia("SELECT * FROM productos WHERE id=?")) {
+			pst.setLong(1, id);
+			ResultSet rs = pst.executeQuery();
+			
+			Producto producto = null;
+
+			if (rs.next()) {
+				producto = new Producto(rs.getLong("id"), rs.getString("nombre"), rs.getString("descripcion"),
+						rs.getBigDecimal("precio"));
+			}
+			
+			return producto;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error al obtener los productos");
+		}
+	}
 }

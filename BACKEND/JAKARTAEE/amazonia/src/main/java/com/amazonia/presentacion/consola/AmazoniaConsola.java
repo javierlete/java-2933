@@ -10,6 +10,8 @@ public class AmazoniaConsola {
 			System.out.printf("%2s %-10s %-20s %10.2f €\n", producto.id(), producto.nombre(), producto.descripcion(),
 					producto.precio());
 		}
+		
+		System.out.println(AnonimoNegocio.verDetalleProducto(2L));
 	}
 
 }
