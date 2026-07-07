@@ -20,7 +20,7 @@
 				<th class="text-end">${p.id}</th>
 				<td>${p.nombre}</td>
 				<td class="text-end">${p.precio}</td>
-				<td><a class="btn btn-sm btn-primary" href="#"><i class="bi bi-pencil-fill"></i></a> <a
+				<td><a class="btn btn-sm btn-primary" href="formulario?id=${p.id}"><i class="bi bi-pencil-fill"></i></a> <a
 					class="btn btn-sm btn-danger" href="borrar?id=${p.id}"><i class="bi bi-trash-fill"></i></a></td>
 			</tr>
 		</c:forEach>
@@ -29,7 +29,7 @@
 	<tfoot class="table-secondary">
 		<tr>
 			<td colspan="3"></td>
-			<td><a class="btn btn-sm btn-primary" href="#"><i class="bi bi-plus-lg"></i></a></td>
+			<td><a class="btn btn-sm btn-primary" href="formulario"><i class="bi bi-plus-lg"></i></a></td>
 		</tr>
 	</tfoot>
 </table>
