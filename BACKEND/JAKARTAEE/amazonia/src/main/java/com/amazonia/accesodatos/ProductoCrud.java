@@ -45,6 +45,32 @@ public class ProductoCrud {
 		}
 	}
 
+	public static void insertar(Producto producto) {
+		try (PreparedStatement pst = BaseDeDatos.crearSentencia("INSERT INTO productos (nombre, precio, descripcion) VALUES (?,?,?)")){
+			pst.setString(1, producto.nombre());
+			pst.setBigDecimal(2, producto.precio());
+			pst.setString(3, producto.descripcion());
+
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException("Error al añadir el producto " + producto, e);
+		}
+	}
+
+	public static void modificar(Producto producto) {
+		try (PreparedStatement pst = BaseDeDatos
+				.crearSentencia("UPDATE productos SET nombre=?, precio=?, descripcion=? WHERE id=?")) {
+			pst.setString(1, producto.nombre());
+			pst.setBigDecimal(2, producto.precio());
+			pst.setString(3, producto.descripcion());
+			pst.setLong(4, producto.id());
+			
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException("Error al modificar el producto " + producto, e);
+		}
+	}
+
 	public static void borrar(Long id) {
 		try (PreparedStatement pst = BaseDeDatos.crearSentencia("DELETE FROM productos WHERE id=?")) {
 			pst.setLong(1, id);
