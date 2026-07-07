@@ -6,7 +6,7 @@
 	<div class="row mb-3">
 		<label for="id" class="col-sm-2 col-form-label">Id</label>
 		<div class="col-sm">
-			<input type="number" class="form-control" id="id" name="id" value="">
+			<input type="number" class="form-control" id="id" name="id" value="${producto.id}">
 		</div>
 	</div>
 
@@ -14,7 +14,7 @@
 		<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
 		<div class="col-sm">
 			<input type="text" class="form-control" id="nombre" name="nombre"
-				value="">
+				value="${producto.nombre}">
 		</div>
 	</div>
 
@@ -22,14 +22,14 @@
 		<label for="precio" class="col-sm-2 col-form-label">Precio</label>
 		<div class="col-sm">
 			<input type="number" step=".02" class="form-control" id="precio" name="precio"
-				value="">
+				value="${producto.precio}">
 		</div>
 	</div>
 
 	<div class="row mb-3">
 		<label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
 		<div class="col-sm">
-			<textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+			<textarea class="form-control" id="descripcion" name="descripcion">${producto.descripcion}</textarea>
 		</div>
 	</div>
 
