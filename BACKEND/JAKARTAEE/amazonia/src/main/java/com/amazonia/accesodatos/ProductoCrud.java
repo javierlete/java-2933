@@ -20,10 +20,10 @@ public class ProductoCrud {
 						rs.getBigDecimal("precio"));
 				productos.add(producto);
 			}
-			
+
 			return productos;
 		} catch (SQLException e) {
-			throw new RuntimeException("Error al obtener los productos");
+			throw new RuntimeException("Error al obtener los productos", e);
 		}
 	}
 
@@ -31,17 +31,27 @@ public class ProductoCrud {
 		try (PreparedStatement pst = BaseDeDatos.crearSentencia("SELECT * FROM productos WHERE id=?")) {
 			pst.setLong(1, id);
 			ResultSet rs = pst.executeQuery();
-			
+
 			Producto producto = null;
 
 			if (rs.next()) {
 				producto = new Producto(rs.getLong("id"), rs.getString("nombre"), rs.getString("descripcion"),
 						rs.getBigDecimal("precio"));
 			}
-			
+
 			return producto;
 		} catch (SQLException e) {
-			throw new RuntimeException("Error al obtener los productos");
+			throw new RuntimeException("Error al obtener el producto " + id, e);
+		}
+	}
+
+	public static void borrar(Long id) {
+		try (PreparedStatement pst = BaseDeDatos.crearSentencia("DELETE FROM productos WHERE id=?")) {
+			pst.setLong(1, id);
+
+			pst.executeUpdate();
+		} catch (SQLException e) {
+			throw new RuntimeException("Error al borrar el producto " + id, e);
 		}
 	}
 }

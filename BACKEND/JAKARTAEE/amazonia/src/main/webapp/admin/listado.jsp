@@ -21,7 +21,7 @@
 				<td>${p.nombre}</td>
 				<td class="text-end">${p.precio}</td>
 				<td><a class="btn btn-sm btn-primary" href="#"><i class="bi bi-pencil-fill"></i></a> <a
-					class="btn btn-sm btn-danger" href="#"><i class="bi bi-trash-fill"></i></a></td>
+					class="btn btn-sm btn-danger" href="borrar?id=${p.id}"><i class="bi bi-trash-fill"></i></a></td>
 			</tr>
 		</c:forEach>
 	</tbody>
