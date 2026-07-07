@@ -3,8 +3,8 @@ package com.amazonia.presentacion.controladores;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.amazonia.accesodatos.ProductoCrud;
 import com.amazonia.dtos.Producto;
+import com.amazonia.logicanegocio.AnonimoNegocio;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -20,8 +20,8 @@ public class IndexControladorServlet extends HttpServlet {
 		// 1. Recibir información de la petición
 		// 2. Convertir los datos
 		// 3. Crear un objeto con ellos
-		// 4. Procesar los datos
-		ArrayList<Producto> productos = ProductoCrud.obtenerTodos();
+		// 4. Llamar a la lógica de negocio
+		ArrayList<Producto> productos = AnonimoNegocio.listarProductos();
 		
 		System.out.println("Productos: " + productos);
 		
