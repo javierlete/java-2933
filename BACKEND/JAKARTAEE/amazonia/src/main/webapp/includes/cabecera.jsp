@@ -26,8 +26,11 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" href="admin/listado">Administración</a>
 					</li>
 				</ul>
 			</div>
