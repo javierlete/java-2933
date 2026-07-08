@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/includes/cabecera.jsp"%>
 
-<form action="formulario" method="post">
+<form action="admin/formulario" method="post">
 	<div class="row mb-3">
 		<label for="id" class="col-sm-2 col-form-label">Id</label>
 		<div class="col-sm">
