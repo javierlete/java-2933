@@ -1,6 +1,7 @@
 package com.amazonia.presentacion.controladores;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import com.amazonia.dtos.Producto;
 import com.amazonia.logicanegocio.AnonimoNegocio;
@@ -13,6 +14,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/detalle")
 public class DetalleControladorServlet extends HttpServlet {
+	private static final Logger log = Logger.getLogger(DetalleControladorServlet.class.getName());
+	
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,7 +29,7 @@ public class DetalleControladorServlet extends HttpServlet {
 		// 4. Llamar a la lógica de negocio
 		Producto producto = AnonimoNegocio.verDetalleProducto(id);
 		
-		System.out.println("Producto: " + producto);
+		log.info("Producto: " + producto);
 		
 		// 5. Empaquetar la información para la siguiente vista
 		request.setAttribute("producto", producto);

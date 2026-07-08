@@ -2,6 +2,7 @@ package com.amazonia.presentacion.controladores.admin;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import com.amazonia.dtos.Producto;
 import com.amazonia.logicanegocio.AnonimoNegocio;
@@ -14,6 +15,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/admin/listado")
 public class AdminControladorServlet extends HttpServlet {
+	private static final Logger log = Logger.getLogger(AdminControladorServlet.class.getName());
+	
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,7 +26,7 @@ public class AdminControladorServlet extends HttpServlet {
 		// 4. Llamar a la lógica de negocio
 		ArrayList<Producto> productos = AnonimoNegocio.listarProductos();
 		
-		System.out.println("Productos: " + productos);
+		log.info("Productos: " + productos);
 		
 		// 5. Empaquetar la información para la siguiente vista
 		request.setAttribute("productos", productos);
