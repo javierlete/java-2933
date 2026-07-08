@@ -30,7 +30,7 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav mb-2 mb-lg-0">
-					<c:if test="${usuario.rol == 'ADMINISTRADOR'}">
+					<c:if test="${usuario.rol == 'ADMINISTRADORES'}">
 						<li class="nav-item"><a class="nav-link" href="admin/listado">Administración</a>
 						</li>
 					</c:if>
