@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Amazonia</title>
 
-<base href="http://localhost:8080/amazonia/">
+<base href="${pageContext.request.contextPath}/">
 
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-icons.min.css">
