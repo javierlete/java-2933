@@ -42,7 +42,7 @@ public class AnadirCarritoControladorServlet extends HttpServlet {
 		
 		// 5. Empaquetar la información para la siguiente vista
 		// 6. Saltar a la siguiente vista
-		request.getRequestDispatcher("/carrito.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/carrito");
 	}
 
 }

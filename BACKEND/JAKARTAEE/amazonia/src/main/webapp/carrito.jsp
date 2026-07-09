@@ -2,8 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/includes/cabecera.jsp"%>
 
+<h2><i class="bi bi-cart"></i> Carrito</h2>
+
 <table class="table">
-	<caption>Listado de productos</caption>
+	<caption>Carrito</caption>
 
 	<thead class="table-secondary">
 		<tr>

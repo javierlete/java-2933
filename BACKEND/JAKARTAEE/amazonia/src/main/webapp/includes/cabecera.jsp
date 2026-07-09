@@ -30,21 +30,27 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" href="carrito"><i class="bi bi-cart"></i></a>
+					</li>
+
 					<c:if test="${usuario.rol == 'ADMINISTRADORES'}">
 						<li class="nav-item"><a class="nav-link" href="admin/listado">Administración</a>
 						</li>
 					</c:if>
 
 					<c:if test="${usuario != null}">
-						<li class="navbar-text"><i class="bi bi-person-fill"></i> ${usuario.nombre}&nbsp;${usuario.rol}</li>
+						<li class="navbar-text"><i class="bi bi-person-fill"></i>
+							${usuario.nombre}&nbsp;${usuario.rol}</li>
 					</c:if>
 
 					<c:if test="${usuario == null}">
-						<li class="nav-item"><a class="nav-link" href="login"><i class="bi bi-box-arrow-in-right"></i></a></li>
+						<li class="nav-item"><a class="nav-link" href="login"><i
+								class="bi bi-box-arrow-in-right"></i></a></li>
 					</c:if>
 
 					<c:if test="${usuario != null}">
-						<li class="nav-item"><a class="nav-link" href="logout"><i class="bi bi-box-arrow-right"></i></a></li>
+						<li class="nav-item"><a class="nav-link" href="logout"><i
+								class="bi bi-box-arrow-right"></i></a></li>
 					</c:if>
 				</ul>
 			</div>
