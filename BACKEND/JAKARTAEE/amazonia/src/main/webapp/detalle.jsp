@@ -15,6 +15,10 @@
 				<p class="card-text">
 					<small class="text-body-secondary">${producto.precio}</small>
 				</p>
+				<p class="card-text">
+					<a class="btn btn-primary" href="carrito/anadir?id=${producto.id}">Añadir al carrito</a>
+				</p>
+				
 			</div>
 		</div>
 	</div>
