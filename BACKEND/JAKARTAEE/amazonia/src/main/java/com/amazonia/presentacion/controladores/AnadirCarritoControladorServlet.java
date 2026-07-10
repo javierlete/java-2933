@@ -28,9 +28,11 @@ public class AnadirCarritoControladorServlet extends HttpServlet {
 		Carrito carrito = (Carrito) session.getAttribute("carrito");
 		
 		String sId = request.getParameter("id");
+		String sCantidad = request.getParameter("cantidad");
 		
 		// 2. Convertir los datos
 		Long id = Long.parseLong(sId);
+		Integer cantidad = Integer.parseInt(sCantidad);
 		
 		// 3. Crear un objeto con ellos
 		// 4. Llamar a la lógica de negocio
@@ -38,19 +40,17 @@ public class AnadirCarritoControladorServlet extends HttpServlet {
 		
 		log.info("Producto: " + producto);
 		
-		agregarProductoACarrito(carrito, producto);
+		agregarProductoACarrito(carrito, producto, cantidad);
 		
 		// 5. Empaquetar la información para la siguiente vista
 		// 6. Saltar a la siguiente vista
 		response.sendRedirect(request.getContextPath() + "/carrito");
 	}
 
-	private Carrito agregarProductoACarrito(Carrito carrito, Producto producto) {
-		Integer cantidad = 1;
-		
+	private Carrito agregarProductoACarrito(Carrito carrito, Producto producto, Integer cantidad) {
 		for(Linea linea: carrito.lineas()) {
 			if(linea.producto().id() == producto.id()) {
-				cantidad = linea.cantidad() + 1;
+				cantidad += linea.cantidad();
 				
 				carrito.lineas().remove(linea);
 				
