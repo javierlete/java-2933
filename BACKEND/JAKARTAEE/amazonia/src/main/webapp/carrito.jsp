@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/includes/cabecera.jsp"%>
 
-<h2><i class="bi bi-cart"></i> Carrito</h2>
+<h2>
+	<i class="bi bi-cart"></i> Carrito
+</h2>
 
 <table class="table">
 	<caption>Carrito</caption>
@@ -18,7 +20,8 @@
 		<c:forEach items="${carrito}" var="producto">
 			<tr class="align-middle">
 				<td>${producto.nombre}</td>
-				<td class="text-end">${producto.precio}</td>
+				<td class="text-end"><fmt:formatNumber type="currency"
+						value="${producto.precio}" /></td>
 			</tr>
 		</c:forEach>
 	</tbody>

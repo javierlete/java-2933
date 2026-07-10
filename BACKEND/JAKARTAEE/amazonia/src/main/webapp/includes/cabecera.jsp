@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="jakarta.tags.core" prefix="c"%>
+<%@ taglib uri="jakarta.tags.fmt" prefix="fmt"%>
 <!doctype html>
 <html lang="es" class="h-100">
 <head>
@@ -30,28 +31,28 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link" href="carrito"><i class="bi bi-cart"></i></a>
-					</li>
+					<li class="nav-item"><a class="nav-link" href="carrito"><i
+							class="bi bi-cart"></i></a></li>
 
-					<c:if test="${usuario.rol == 'ADMINISTRADORES'}">
-						<li class="nav-item"><a class="nav-link" href="admin/listado">Administración</a>
-						</li>
-					</c:if>
+					<c:choose>
+						<c:when test="${usuario != null}">
+							<c:if test="${usuario.rol == 'ADMINISTRADORES'}">
+								<li class="nav-item"><a class="nav-link"
+									href="admin/listado">Administración</a></li>
+							</c:if>
+							
+							<li class="navbar-text"><i class="bi bi-person-fill"></i>
+								${usuario.nombre}&nbsp;${usuario.rol}</li>
+							<li class="nav-item"><a class="nav-link" href="logout"><i
+									class="bi bi-box-arrow-right"></i></a></li>
+						</c:when>
+						
+						<c:otherwise>
+							<li class="nav-item"><a class="nav-link" href="login"><i
+									class="bi bi-box-arrow-in-right"></i></a></li>
+						</c:otherwise>
 
-					<c:if test="${usuario != null}">
-						<li class="navbar-text"><i class="bi bi-person-fill"></i>
-							${usuario.nombre}&nbsp;${usuario.rol}</li>
-					</c:if>
-
-					<c:if test="${usuario == null}">
-						<li class="nav-item"><a class="nav-link" href="login"><i
-								class="bi bi-box-arrow-in-right"></i></a></li>
-					</c:if>
-
-					<c:if test="${usuario != null}">
-						<li class="nav-item"><a class="nav-link" href="logout"><i
-								class="bi bi-box-arrow-right"></i></a></li>
-					</c:if>
+					</c:choose>
 				</ul>
 			</div>
 		</div>

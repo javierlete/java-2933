@@ -19,9 +19,12 @@
 			<tr class="align-middle">
 				<th class="text-end">${p.id}</th>
 				<td>${p.nombre}</td>
-				<td class="text-end">${p.precio}</td>
-				<td><a class="btn btn-sm btn-primary" href="admin/formulario?id=${p.id}"><i class="bi bi-pencil-fill"></i></a> <a
-					class="btn btn-sm btn-danger" href="admin/borrar?id=${p.id}"><i class="bi bi-trash-fill"></i></a></td>
+				<td class="text-end"><fmt:formatNumber type="currency"
+						value="${p.precio}" /></td>
+				<td><a class="btn btn-sm btn-primary"
+					href="admin/formulario?id=${p.id}"><i class="bi bi-pencil-fill"></i></a>
+					<a class="btn btn-sm btn-danger" href="admin/borrar?id=${p.id}"><i
+						class="bi bi-trash-fill"></i></a></td>
 			</tr>
 		</c:forEach>
 	</tbody>
@@ -29,7 +32,8 @@
 	<tfoot class="table-secondary">
 		<tr>
 			<td colspan="3"></td>
-			<td><a class="btn btn-sm btn-primary" href="admin/formulario"><i class="bi bi-plus-lg"></i></a></td>
+			<td><a class="btn btn-sm btn-primary" href="admin/formulario"><i
+					class="bi bi-plus-lg"></i></a></td>
 		</tr>
 	</tfoot>
 </table>
