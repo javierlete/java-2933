@@ -38,11 +38,29 @@ public class AnadirCarritoControladorServlet extends HttpServlet {
 		
 		log.info("Producto: " + producto);
 		
-		carrito.lineas().add(new Linea(producto, 1));
+		agregarProductoACarrito(carrito, producto);
 		
 		// 5. Empaquetar la información para la siguiente vista
 		// 6. Saltar a la siguiente vista
 		response.sendRedirect(request.getContextPath() + "/carrito");
+	}
+
+	private Carrito agregarProductoACarrito(Carrito carrito, Producto producto) {
+		Integer cantidad = 1;
+		
+		for(Linea linea: carrito.lineas()) {
+			if(linea.producto().id() == producto.id()) {
+				cantidad = linea.cantidad() + 1;
+				
+				carrito.lineas().remove(linea);
+				
+				break;
+			}
+		}
+		
+		carrito.lineas().add(new Linea(producto, cantidad));
+		
+		return carrito;
 	}
 
 }
