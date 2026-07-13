@@ -31,21 +31,29 @@
 					<td>${linea.producto.nombre}</td>
 					<td class="text-end"><fmt:formatNumber type="currency"
 							value="${linea.producto.precio}" /></td>
-					<td class="text-center"><span class="input-group">
+					<td class="text-center">
+						<form class="input-group" action="carrito/anadir">
 							<button id="menos" class="btn btn-outline-secondary"
-								type="button">
+								type="submit" name="cantidad" value="-1">
 								<i class="bi bi-dash"></i>
-							</button> <input id="cantidad" name="cantidad" type="text" pattern="\d+"
-							class="form-control text-center" value="${linea.cantidad}"
-							min="1">
-							<button id="mas" class="btn btn-outline-secondary" type="button">
+							</button>
+
+							<input type="hidden" name="id" value="${linea.producto.id}">
+
+							<input id="cantidad" readonly type="text" pattern="\d+"
+								class="form-control text-center" value="${linea.cantidad}"
+								min="1">
+
+							<button id="mas" class="btn btn-outline-secondary" type="submit"
+								name="cantidad" value="1">
 								<i class="bi bi-plus-lg"></i>
 							</button>
-					</span></td>
-					<td class="text-end d-none d-md-table-cell"><fmt:formatNumber type="currency"
-							value="${linea.subTotal}" /></td>
-					<td class="text-end d-none d-md-table-cell"><fmt:formatNumber type="currency"
-							value="${linea.iva}" /></td>
+						</form>
+					</td>
+					<td class="text-end d-none d-md-table-cell"><fmt:formatNumber
+							type="currency" value="${linea.subTotal}" /></td>
+					<td class="text-end d-none d-md-table-cell"><fmt:formatNumber
+							type="currency" value="${linea.iva}" /></td>
 					<td class="text-end fw-bold"><fmt:formatNumber type="currency"
 							value="${linea.total}" /></td>
 				</tr>
