@@ -12,7 +12,7 @@ public record Linea(Producto producto, Integer cantidad) {
 	}
 	
 	public BigDecimal iva() {
-		return producto.precio().multiply(IVA);
+		return total().multiply(IVA);
 	}
 	
 	public BigDecimal total() {
