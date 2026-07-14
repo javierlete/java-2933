@@ -1,7 +1,6 @@
 package com.amazonia.presentacion.controladores;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import com.amazonia.dtos.Cliente;
 import com.amazonia.dtos.Factura;
@@ -18,8 +17,6 @@ import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/facturar")
 public class FacturarControladorServlet extends HttpServlet {
-	private static final Logger log = Logger.getLogger(FacturarControladorServlet.class.getName());
-
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
