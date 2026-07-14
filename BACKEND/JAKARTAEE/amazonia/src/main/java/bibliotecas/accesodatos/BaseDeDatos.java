@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 public class BaseDeDatos {
@@ -34,7 +35,7 @@ public class BaseDeDatos {
 	public static PreparedStatement crearSentencia(String sql) {
 		try {
 			Connection con = DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASS);
-			PreparedStatement pst = con.prepareStatement(sql);
+			PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
 			return pst;
 		} catch (SQLException e) {
