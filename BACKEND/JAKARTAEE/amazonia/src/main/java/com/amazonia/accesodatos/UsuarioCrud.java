@@ -25,7 +25,7 @@ public class UsuarioCrud {
 			    usuarios u
 			        JOIN
 			    roles r ON r.id = u.roles_id
-					JOIN
+					LEFT JOIN
 				clientes c ON c.id = u.clientes_id
 			WHERE
 			    email = ?
