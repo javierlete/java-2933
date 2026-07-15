@@ -23,26 +23,33 @@ public class FacturarControladorServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// 1. Recibir información de la petición
 		HttpSession session = request.getSession();
-		
+
 		Carrito carrito = (Carrito) session.getAttribute("carrito");
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 		Cliente cliente = usuario == null ? null : usuario.cliente();
-		
+
 		// 2. Convertir los datos
 		// 3. Crear un objeto con ellos
 		// 4. Llamar a la lógica de negocio
-		if(usuario == null) {
+		if (usuario == null) {
 			// 5. Empaquetar la información para la siguiente vista
 			// 6. Saltar a la siguiente vista
 			response.sendRedirect(request.getContextPath() + "/login");
 			return;
 		}
-		
+
+		if (cliente == null) {
+			// 5. Empaquetar la información para la siguiente vista
+			// 6. Saltar a la siguiente vista
+			response.sendRedirect(request.getContextPath() + "/cliente/formulario");
+			return;
+		}
+
 		Factura factura = ClienteNegocio.facturar(cliente, carrito);
 
 		// 5. Empaquetar la información para la siguiente vista
 		request.setAttribute("factura", factura);
-		
+
 		// 6. Saltar a la siguiente vista
 		request.getRequestDispatcher("factura.jsp").forward(request, response);
 	}
