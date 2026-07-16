@@ -48,10 +48,8 @@ public class FacturarControladorServlet extends HttpServlet {
 		Factura factura = ClienteNegocio.facturar(cliente, carrito);
 
 		// 5. Empaquetar la información para la siguiente vista
-		request.setAttribute("factura", factura);
-
 		// 6. Saltar a la siguiente vista
-		request.getRequestDispatcher("factura.jsp").forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/factura?id=" + factura.id());
 	}
 
 }
