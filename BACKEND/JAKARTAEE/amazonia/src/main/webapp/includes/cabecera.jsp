@@ -40,13 +40,14 @@
 								<li class="nav-item"><a class="nav-link"
 									href="admin/listado">Administración</a></li>
 							</c:if>
-							
-							<li class="navbar-text"><i class="bi bi-person-fill"></i>
-								${usuario.nombre}&nbsp;${usuario.rol}</li>
+
+							<li class="nav-item"><a class="nav-link" href="usuario"><i
+									class="bi bi-person-fill"></i>
+									${usuario.nombre}&nbsp;${usuario.rol}</a></li>
 							<li class="nav-item"><a class="nav-link" href="logout"><i
 									class="bi bi-box-arrow-right"></i></a></li>
 						</c:when>
-						
+
 						<c:otherwise>
 							<li class="nav-item"><a class="nav-link" href="login"><i
 									class="bi bi-box-arrow-in-right"></i></a></li>
