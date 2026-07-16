@@ -1,12 +1,14 @@
 package com.amazonia.presentacion.controladores;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.amazonia.dtos.Cliente;
 import com.amazonia.dtos.Factura;
 import com.amazonia.dtos.Usuario;
 import com.amazonia.logicanegocio.ClienteNegocio;
 import com.amazonia.presentacion.modelos.Carrito;
+import com.amazonia.presentacion.modelos.Linea;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -48,6 +50,8 @@ public class FacturarControladorServlet extends HttpServlet {
 		Factura factura = ClienteNegocio.facturar(cliente, carrito);
 
 		// 5. Empaquetar la información para la siguiente vista
+		session.setAttribute("carrito", new Carrito(new ArrayList<Linea>()));
+		
 		// 6. Saltar a la siguiente vista
 		response.sendRedirect(request.getContextPath() + "/factura?id=" + factura.id());
 	}
