@@ -62,6 +62,22 @@ public class FacturaCrud {
 			WHERE
 			    facturas_id = ?
 			""";
+	private static final String SQL_SELECT_ID_CLIENTE = """
+			SELECT
+		    f.id AS f_id,
+		    f.numero AS f_numero,
+		    f.fecha AS f_fecha,
+		    c.id AS c_id,
+		    c.nombre AS c_nombre,
+		    c.apellidos AS c_apellidos,
+		    c.nif AS c_nif
+		FROM
+		    facturas f
+		        JOIN
+		    clientes c ON c.id = f.clientes_id
+		WHERE
+		    c.id = ?
+		""";
 
 	public static Factura obtenerPorId(Long id) {
 		try (PreparedStatement pst = BaseDeDatos.crearSentencia(SQL_SELECT_ID)) {
@@ -127,6 +143,47 @@ public class FacturaCrud {
 			throw new RuntimeException("Error al guardar la factura " + facturaProvisional, e);
 		}
 
+	}
+
+	public static ArrayList<Factura> obtenerPorIdCliente(Long idCliente) {
+		try (PreparedStatement pst = BaseDeDatos.crearSentencia(SQL_SELECT_ID_CLIENTE)) {
+			pst.setLong(1, idCliente);
+			ResultSet rs = pst.executeQuery();
+
+			ArrayList<Factura> facturas = new ArrayList<Factura>();
+			Factura factura = null;
+
+			while (rs.next()) {
+				Long facturaId = rs.getLong("f_id");
+				String facturaNumero = rs.getString("f_numero");
+				LocalDate facturaFecha = rs.getDate("f_fecha").toLocalDate();
+
+				Cliente cliente = new Cliente(rs.getLong("c_id"), rs.getString("c_nombre"), rs.getString("c_apellidos"),
+						rs.getString("c_nif"));
+
+				PreparedStatement pstLinea = BaseDeDatos.crearSentencia(SQL_SELECT_LINEA);
+
+				pstLinea.setLong(1, facturaId);
+
+				ArrayList<Linea> lineas = new ArrayList<Linea>();
+
+				ResultSet rsLineas = pstLinea.executeQuery();
+
+				while (rsLineas.next()) {
+					Producto producto = new Producto(rsLineas.getLong("p_id"), rsLineas.getString("p_nombre"),
+							rsLineas.getString("p_descripcion"), rsLineas.getBigDecimal("p_precio"));
+					lineas.add(new Linea(producto, rsLineas.getInt("fp_cantidad")));
+				}
+				
+				factura = new Factura(facturaId, facturaNumero, facturaFecha, cliente, lineas);
+				
+				facturas.add(factura);
+			}
+
+			return facturas;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error al obtener la factura " + idCliente, e);
+		}
 	}
 
 }
