@@ -13,16 +13,18 @@
 	<div class="row mb-3">
 		<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
 		<div class="col-sm">
-			<input type="text" class="form-control" id="nombre" name="nombre"
+			<input type="text" class="form-control ${errores.nombre != null ? 'is-invalid' : ''}" id="nombre" name="nombre"
 				value="${producto.nombre}">
+			<div class="invalid-feedback">${errores.nombre}</div>
 		</div>
 	</div>
 
 	<div class="row mb-3">
 		<label for="precio" class="col-sm-2 col-form-label">Precio</label>
 		<div class="col-sm">
-			<input type="number" step=".02" class="form-control" id="precio" name="precio"
+			<input type="number" step=".02" class="form-control ${errores.precio != null ? 'is-invalid' : ''}" id="precio" name="precio"
 				value="${producto.precio}">
+			<div class="invalid-feedback">${errores.precio}</div>
 		</div>
 	</div>
 

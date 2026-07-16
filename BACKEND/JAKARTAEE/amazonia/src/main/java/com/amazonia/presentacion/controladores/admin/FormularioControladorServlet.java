@@ -2,6 +2,7 @@ package com.amazonia.presentacion.controladores.admin;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.HashMap;
 
 import com.amazonia.dtos.Producto;
 import com.amazonia.logicanegocio.AdministradorNegocio;
@@ -48,12 +49,24 @@ public class FormularioControladorServlet extends HttpServlet {
 
 		// 2. Convertir los datos
 		Long id = sId.isBlank() ? null : Long.parseLong(sId);
-		BigDecimal precio = new BigDecimal(sPrecio);
+		BigDecimal precio = sPrecio.isBlank() ? null : new BigDecimal(sPrecio);
 
 		// 3. Crear un objeto con ellos
 		Producto producto = new Producto(id, nombre, descripcion, precio);
 
 		// 4. Llamar a la lógica de negocio
+		HashMap<String, String> errores = AdministradorNegocio.validarProducto(producto);
+		
+		if(errores.size() > 0) {
+			// 5. Empaquetar la información para la siguiente vista
+			request.setAttribute("errores", errores);
+			request.setAttribute("producto", producto);
+			
+			// 6. Saltar a la siguiente vista
+			request.getRequestDispatcher("formulario.jsp").forward(request, response);
+			return;
+		}
+		
 		if (id == null) {
 			AdministradorNegocio.altaProducto(producto);
 		} else {
