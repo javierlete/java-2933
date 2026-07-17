@@ -8,6 +8,7 @@ import java.util.HashMap;
 import com.amazonia.dtos.Producto;
 import com.amazonia.logicanegocio.AdministradorNegocio;
 import com.amazonia.logicanegocio.AnonimoNegocio;
+import com.amazonia.presentacion.modelos.Alerta;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -80,6 +81,7 @@ public class FormularioControladorServlet extends HttpServlet {
 			// 5. Empaquetar la información para la siguiente vista
 			request.setAttribute("errores", errores);
 			request.setAttribute("producto", producto);
+			request.setAttribute("alerta", new Alerta("danger", "Corrige los fallos de validación"));
 
 			// 6. Saltar a la siguiente vista
 			request.getRequestDispatcher("formulario.jsp").forward(request, response);

@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-icons.min.css">
 </head>
-<body class="h-100 d-flex flex-column justify-content-between">
+<body class="h-100 d-flex flex-column">
 	<nav class="navbar navbar-expand-lg bg-dark sticky-top"
 		data-bs-theme="dark">
 		<div class="container-fluid">
@@ -58,5 +58,14 @@
 			</div>
 		</div>
 	</nav>
+
+	<c:if test="${alerta != null}">
+		<div class="alert alert-${alerta.tipo} alert-dismissible fade show"
+			role="alert">
+			${alerta.texto}
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+	</c:if>
 
 	<%="<main class='container my-5'>"%>
