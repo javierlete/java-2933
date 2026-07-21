@@ -45,8 +45,29 @@ public class ProductoCrud {
 		}
 	}
 
+	public static ArrayList<Producto> obtenerPorTexto(String texto) {
+		try (PreparedStatement pst = BaseDeDatos.crearSentencia("SELECT * FROM productos WHERE nombre LIKE ?")) {
+			pst.setString(1, "%" + texto + "%");
+			ResultSet rs = pst.executeQuery();
+
+			ArrayList<Producto> productos = new ArrayList<Producto>();
+			Producto producto = null;
+
+			while (rs.next()) {
+				producto = new Producto(rs.getLong("id"), rs.getString("nombre"), rs.getString("descripcion"),
+						rs.getBigDecimal("precio"));
+				productos.add(producto);
+			}
+
+			return productos;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error al buscar " + texto, e);
+		}
+	}
+
 	public static void insertar(Producto producto) {
-		try (PreparedStatement pst = BaseDeDatos.crearSentencia("INSERT INTO productos (nombre, precio, descripcion) VALUES (?,?,?)")){
+		try (PreparedStatement pst = BaseDeDatos
+				.crearSentencia("INSERT INTO productos (nombre, precio, descripcion) VALUES (?,?,?)")) {
 			pst.setString(1, producto.nombre());
 			pst.setBigDecimal(2, producto.precio());
 			pst.setString(3, producto.descripcion());
@@ -64,7 +85,7 @@ public class ProductoCrud {
 			pst.setBigDecimal(2, producto.precio());
 			pst.setString(3, producto.descripcion());
 			pst.setLong(4, producto.id());
-			
+
 			pst.executeUpdate();
 		} catch (SQLException e) {
 			throw new RuntimeException("Error al modificar el producto " + producto, e);

@@ -30,8 +30,8 @@
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a>
 					</li>
 				</ul>
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search" placeholder="Buscar"
+				<form action="buscar" class="d-flex" role="search">
+					<input name="texto" class="form-control me-2" type="search" placeholder="Buscar"
 						aria-label="Search" />
 					<button class="btn btn-outline-light" type="submit">Buscar</button>
 				</form>

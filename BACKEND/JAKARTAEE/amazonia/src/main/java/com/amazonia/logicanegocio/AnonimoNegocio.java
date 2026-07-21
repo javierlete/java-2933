@@ -32,4 +32,10 @@ public class AnonimoNegocio {
 			return null;
 		}
 	}
+
+	public static ArrayList<Producto> buscarProductos(String texto) {
+		log.info("Búsqueda por " + texto);
+		
+		return ProductoCrud.obtenerPorTexto(texto);
+	}
 }
