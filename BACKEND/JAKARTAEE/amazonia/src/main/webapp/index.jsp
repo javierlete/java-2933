@@ -25,4 +25,32 @@
 	</c:forEach>
 </div>
 
+<nav aria-label="Navegación de páginas">
+	<ul class="pagination justify-content-center">
+		<!-- Ir al inicio (|<) -->
+		<li class="page-item disabled"><a class="page-link" href="#"
+			aria-label="Primero"> <i class="bi bi-chevron-bar-left"></i>
+		</a></li>
+		<!-- Anterior (<) -->
+		<li class="page-item disabled"><a class="page-link" href="#"
+			aria-label="Anterior"> <i class="bi bi-chevron-left"></i>
+		</a></li>
+
+		<!-- Páginas Numéricas -->
+		<li class="page-item active"><a class="page-link" href="#">1</a></li>
+		<li class="page-item"><a class="page-link" href="#">2</a></li>
+		<li class="page-item"><a class="page-link" href="#">3</a></li>
+
+		<!-- Siguiente (>) -->
+		<li class="page-item"><a class="page-link" href="#"
+			aria-label="Siguiente"> <i class="bi bi-chevron-right"></i>
+		</a></li>
+		<!-- Ir al final (>|) -->
+		<li class="page-item"><a class="page-link" href="#"
+			aria-label="Último"> <i class="bi bi-chevron-bar-right"></i>
+		</a></li>
+	</ul>
+</nav>
+
+
 <%@ include file="/includes/pie.jsp"%>
