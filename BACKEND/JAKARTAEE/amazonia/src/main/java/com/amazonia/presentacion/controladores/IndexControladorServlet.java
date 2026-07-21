@@ -22,20 +22,24 @@ public class IndexControladorServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. Recibir información de la petición
 		String sPagina = request.getParameter("pagina");
+		String texto = request.getParameter("texto");
 		
 		// 2. Convertir los datos
 		int pagina = sPagina == null ? 1 : Integer.parseInt(sPagina);
+		texto = texto == null ? "" : texto;
 		
 		// 3. Crear un objeto con ellos
 		// 4. Llamar a la lógica de negocio
-		ArrayList<Producto> productos = AnonimoNegocio.listarProductos(pagina);
-		int numeroPaginas = AnonimoNegocio.numeroPaginasProductos();
+		ArrayList<Producto> productos = AnonimoNegocio.listarProductos(pagina, texto);
+		int numeroPaginas = AnonimoNegocio.numeroPaginasProductos(texto);
 		
 		log.info("Productos: " + productos);
 		
 		// 5. Empaquetar la información para la siguiente vista
 		request.setAttribute("productos", productos);
 		request.setAttribute("numeroPaginas", numeroPaginas);
+		request.setAttribute("pagina", pagina);
+		request.setAttribute("texto", texto);
 		
 		// 6. Saltar a la siguiente vista
 		request.getRequestDispatcher("index.jsp").forward(request, response);

@@ -19,14 +19,24 @@ public class AnonimoNegocio {
 
 	public static ArrayList<Producto> listarProductos(int pagina) {
 		log.info("Listando productos " + pagina);
-		
+
 		return ProductoCrud.obtenerPagina(pagina);
 	}
-	
+
+	public static ArrayList<Producto> listarProductos(int pagina, String texto) {
+		log.info("Listando productos " + pagina);
+
+		return ProductoCrud.obtenerPagina(pagina, texto);
+	}
+
 	public static int numeroPaginasProductos() {
 		return ProductoCrud.obtenerNumeroPaginas();
 	}
-	
+
+	public static int numeroPaginasProductos(String texto) {
+		return ProductoCrud.obtenerNumeroPaginas(texto);
+	}
+
 	public static Producto verDetalleProducto(Long id) {
 		log.info("Ver detalle producto " + id);
 
@@ -35,7 +45,7 @@ public class AnonimoNegocio {
 
 	public static Usuario autenticar(Usuario login) {
 		Usuario usuario = UsuarioCrud.obtenerPorEmail(login.email());
-		
+
 		if (usuario != null && usuario.password().equals(login.password())) {
 			return usuario;
 		} else {
@@ -45,7 +55,7 @@ public class AnonimoNegocio {
 
 	public static ArrayList<Producto> buscarProductos(String texto) {
 		log.info("Búsqueda por " + texto);
-		
+
 		return ProductoCrud.obtenerPorTexto(texto);
 	}
 }

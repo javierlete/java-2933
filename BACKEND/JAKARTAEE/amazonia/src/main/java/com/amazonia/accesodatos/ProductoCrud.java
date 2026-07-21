@@ -30,7 +30,7 @@ public class ProductoCrud {
 	public static ArrayList<Producto> obtenerPagina(int pagina) {
 		try (PreparedStatement pst = BaseDeDatos.crearSentencia("SELECT * FROM productos LIMIT ?,3")) {
 			pst.setInt(1, (pagina - 1) * 3);
-			
+
 			ResultSet rs = pst.executeQuery();
 			ArrayList<Producto> productos = new ArrayList<Producto>();
 
@@ -45,9 +45,43 @@ public class ProductoCrud {
 			throw new RuntimeException("Error al obtener los productos", e);
 		}
 	}
-	
+
+	public static ArrayList<Producto> obtenerPagina(int pagina, String texto) {
+		try (PreparedStatement pst = BaseDeDatos
+				.crearSentencia("SELECT * FROM productos WHERE nombre LIKE ? LIMIT ?,3")) {
+			pst.setString(1, "%" + texto + "%");
+			pst.setInt(2, (pagina - 1) * 3);
+
+			ResultSet rs = pst.executeQuery();
+			ArrayList<Producto> productos = new ArrayList<Producto>();
+
+			while (rs.next()) {
+				Producto producto = new Producto(rs.getLong("id"), rs.getString("nombre"), rs.getString("descripcion"),
+						rs.getBigDecimal("precio"));
+				productos.add(producto);
+			}
+
+			return productos;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error al obtener los productos", e);
+		}
+	}
+
 	public static int obtenerNumeroPaginas() {
 		try (PreparedStatement pst = BaseDeDatos.crearSentencia("SELECT COUNT(*) FROM productos")) {
+			ResultSet rs = pst.executeQuery();
+
+			rs.next();
+
+			return (rs.getInt(1) / 3) + 1;
+		} catch (SQLException e) {
+			throw new RuntimeException("Error al consultar el número de páginas", e);
+		}
+	}
+
+	public static int obtenerNumeroPaginas(String texto) {
+		try (PreparedStatement pst = BaseDeDatos.crearSentencia("SELECT COUNT(*) FROM productos WHERE nombre LIKE ?")) {
+			pst.setString(1, "%" + texto + "%");
 			ResultSet rs = pst.executeQuery();
 
 			rs.next();

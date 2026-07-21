@@ -30,9 +30,9 @@
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a>
 					</li>
 				</ul>
-				<form action="buscar" class="d-flex" role="search">
+				<form action="index" class="d-flex" role="search">
 					<input name="texto" class="form-control me-2" type="search" placeholder="Buscar"
-						aria-label="Search" />
+						aria-label="Search" value="${texto}"/>
 					<button class="btn btn-outline-light" type="submit">Buscar</button>
 				</form>
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
