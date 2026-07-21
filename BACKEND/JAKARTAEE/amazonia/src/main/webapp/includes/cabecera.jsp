@@ -30,7 +30,12 @@
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a>
 					</li>
 				</ul>
-				<ul class="navbar-nav mb-2 mb-lg-0">
+				<form class="d-flex" role="search">
+					<input class="form-control me-2" type="search" placeholder="Buscar"
+						aria-label="Search" />
+					<button class="btn btn-outline-light" type="submit">Buscar</button>
+				</form>
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="carrito"><i
 							class="bi bi-cart"></i></a></li>
 
