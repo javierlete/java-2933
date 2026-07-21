@@ -17,6 +17,16 @@ public class AnonimoNegocio {
 		return ProductoCrud.obtenerTodos();
 	}
 
+	public static ArrayList<Producto> listarProductos(int pagina) {
+		log.info("Listando productos " + pagina);
+		
+		return ProductoCrud.obtenerPagina(pagina);
+	}
+	
+	public static int numeroPaginasProductos() {
+		return ProductoCrud.obtenerNumeroPaginas();
+	}
+	
 	public static Producto verDetalleProducto(Long id) {
 		log.info("Ver detalle producto " + id);
 
