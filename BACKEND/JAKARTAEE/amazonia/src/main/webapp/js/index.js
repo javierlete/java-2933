@@ -1,7 +1,13 @@
 const URL = 'api/v1/productos';
 
+let numeroPaginas;
+
 let pagina = 1;
 let texto = '';
+
+let alerta;
+let pNumero, pInicio, pAnterior, pSiguiente, pFin;
+let fila;
 
 function euro(cantidad) {
     const fmt = new Intl.NumberFormat('es-ES', {
@@ -15,16 +21,53 @@ function euro(cantidad) {
 }
 
 window.addEventListener('DOMContentLoaded', async () => {
-    const alerta = document.querySelector('#alerta');
+    alerta = document.querySelector('#alerta');
+
+    pInicio = document.querySelector('#p-inicio a');
+    pAnterior = document.querySelector('#p-anterior a');
+    pNumero = document.querySelector('#p-numero a');
+    pSiguiente = document.querySelector('#p-siguiente a');
+    pFin = document.querySelector('#p-fin a');
+
+    for (const enlacePaginacion of document.querySelectorAll('.pagination a')) {
+        enlacePaginacion.addEventListener('click', paginacion);
+    }
+
+    fila = document.querySelector('#listado .row');
 
     alerta.style.display = 'none';
 
+    await actualizarListadoProductos();
+});
+
+async function paginacion(e) {
+    console.log(e);
+    e.preventDefault();
+
+    const id = e.target.parentElement.parentElement.id;
+
+    console.log(id);
+
+    switch (id) {
+        case 'p-inicio': pagina = 1; break;
+        case 'p-anterior': pagina > 1 && pagina--; break;
+        case 'p-siguiente': pagina < numeroPaginas && pagina++; break;
+        case 'p-fin': pagina = numeroPaginas; break;
+    }
+
+    console.log(pagina);
+
+    actualizarListadoProductos();
+}
+
+async function actualizarListadoProductos() {
     const respuesta = await fetch(`${URL}?pagina=${pagina}&texto=${texto}`);
     const respuestaNumeroPaginas = await fetch(`${URL}/numero-paginas?texto=${texto}`);
     const productos = await respuesta.json();
-    const numeroPaginas = await respuestaNumeroPaginas.json();
 
-    const fila = document.querySelector('#listado .row');
+    numeroPaginas = await respuestaNumeroPaginas.json();
+
+    fila.innerHTML = '';
 
     for (const p of productos) {
         const div = document.createElement('div');
@@ -49,10 +92,18 @@ window.addEventListener('DOMContentLoaded', async () => {
         fila.append(div);
     }
 
-    document.querySelector('#p-numero a').textContent = `${pagina} de ${numeroPaginas}`;
+    pNumero.textContent = `${pagina} de ${numeroPaginas}`;
+
+    pInicio.classList.remove('disabled');
+    pAnterior.classList.remove('disabled');
+    pSiguiente.classList.remove('disabled');
+    pFin.classList.remove('disabled');
 
     if (pagina === 1) {
-		document.querySelector('#p-inicio a').classList.add('disabled');
-		document.querySelector('#p-anterior a').classList.add('disabled');
+        pInicio.classList.add('disabled');
+        pAnterior.classList.add('disabled');
+    } else if (pagina === numeroPaginas) {
+        pSiguiente.classList.add('disabled');
+        pFin.classList.add('disabled');
     }
-});
+}
