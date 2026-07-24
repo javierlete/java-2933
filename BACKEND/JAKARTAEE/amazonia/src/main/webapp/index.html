@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-icons.min.css">
 
+<link rel="stylesheet" href="css/index.css">
+
 <script type="module" src="js/index.js"></script>
 
 </head>
@@ -27,22 +29,23 @@
 					<li class="nav-item"><a class="nav-link" href="index">Principal</a>
 					</li>
 				</ul>
-				<form action="index" class="d-flex" role="search">
+				<form class="d-flex" role="search">
 					<input name="texto" class="form-control me-2" type="search"
-						placeholder="Buscar" aria-label="Search" value="${texto}" />
+						placeholder="Buscar" aria-label="Search" value="" />
 					<button class="btn btn-outline-light" type="submit">Buscar</button>
 				</form>
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
 					<li class="nav-item"><a class="nav-link" href="carrito"><i
 							class="bi bi-cart"></i></a></li>
 
-					<li class="nav-item"><a class="nav-link" href="admin/listado">Administración</a></li>
+					<li class="nav-item administrador"><a class="nav-link"
+						href="admin/listado">Administración</a></li>
 
-					<li class="nav-item"><a class="nav-link" href="usuario"><i
-							class="bi bi-person-fill"></i>
+					<li class="nav-item autenticado"><a class="nav-link"
+						href="usuario"><i class="bi bi-person-fill"></i>
 							${usuario.nombre}&nbsp;${usuario.rol}</a></li>
-					<li class="nav-item"><a class="nav-link" href="logout"><i
-							class="bi bi-box-arrow-right"></i></a></li>
+					<li class="nav-item autenticado"><a class="nav-link"
+						href="logout"><i class="bi bi-box-arrow-right"></i></a></li>
 					<li class="nav-item"><a class="nav-link" href="login"><i
 							class="bi bi-box-arrow-in-right"></i></a></li>
 				</ul>
@@ -50,7 +53,8 @@
 		</div>
 	</nav>
 
-	<div class="alert alert-info alert-dismissible fade show" role="alert">
+	<div id="alerta" class="alert alert-info alert-dismissible fade show"
+		role="alert">
 		${alerta.texto}
 		<button type="button" class="btn-close" data-bs-dismiss="alert"
 			aria-label="Close"></button>
@@ -58,36 +62,31 @@
 
 	<main class='container my-5'>
 		<section id="listado">
-			<div class="row row-cols-1 row-cols-md-3 g-4">
-				
-			</div>
+			<div class="row row-cols-1 row-cols-md-3 g-4"></div>
 
 			<nav class="mt-3" aria-label="Navegación de páginas">
 				<ul class="pagination justify-content-center">
 					<!-- Ir al inicio (|<) -->
-					<li class="page-item ${pagina == 1 ? 'disabled' : ''}"><a
-						class="page-link" href="index?pagina=1&texto=${texto}"
-						aria-label="Primero"> <i class="bi bi-chevron-bar-left"></i>
+					<li id="p-inicio" class="page-item"><a class="page-link"
+						href="#" aria-label="Primero"> <i
+							class="bi bi-chevron-bar-left"></i>
 					</a></li>
 					<!-- Anterior (<) -->
-					<li class="page-item ${pagina == 1 ? 'disabled' : ''}"><a
-						class="page-link" href="index?pagina=${pagina - 1}&texto=${texto}"
-						aria-label="Anterior"> <i class="bi bi-chevron-left"></i>
+					<li id="p-anterior" class="page-item"><a class="page-link"
+						href="#" aria-label="Anterior"> <i class="bi bi-chevron-left"></i>
 					</a></li>
 
 					<!-- Páginas Numéricas -->
-					<li class="page-item"><a class="page-link" href="#">${pagina}
-							de ${numeroPaginas}</a></li>
+					<li id="p-numero" class="page-item"><a class="page-link"
+						href="#"></a></li>
 
 					<!-- Siguiente (>) -->
-					<li class="page-item ${pagina == numeroPaginas ? 'disabled' : ''}"><a
-						class="page-link" href="index?pagina=${pagina + 1}&texto=${texto}"
-						aria-label="Siguiente"> <i class="bi bi-chevron-right"></i>
+					<li id="p-siguiente" class="page-item"><a class="page-link"
+						href="#" aria-label="Siguiente"> <i
+							class="bi bi-chevron-right"></i>
 					</a></li>
 					<!-- Ir al final (>|) -->
-					<li class="page-item ${pagina == numeroPaginas ? 'disabled' : ''}"><a
-						class="page-link"
-						href="index?pagina=${numeroPaginas}&texto=${texto}"
+					<li id="p-fin" class="page-item"><a class="page-link" href="#"
 						aria-label="Último"> <i class="bi bi-chevron-bar-right"></i>
 					</a></li>
 				</ul>

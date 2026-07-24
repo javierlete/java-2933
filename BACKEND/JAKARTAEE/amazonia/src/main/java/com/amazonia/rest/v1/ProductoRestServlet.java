@@ -26,18 +26,43 @@ public class ProductoRestServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// 1. Recibir información de la petición
 		String pathInfo = request.getPathInfo();
-		String sId = pathInfo == null ? null : pathInfo.substring(1);
+		String ruta = pathInfo == null ? null : pathInfo.substring(1);
+		String sPagina = request.getParameter("pagina");
+		String texto = request.getParameter("texto");
 
 		// 2. Convertir los datos
-		Long id = sId == null ? null : Long.parseLong(sId);
+		Long id = null;
+		boolean opcionEspecial = false;
+
+		try {
+			id = ruta == null ? null : Long.parseLong(ruta);
+		} catch (NumberFormatException e) {
+			opcionEspecial = true;
+		}
+
+		Integer pagina = sPagina == null ? null : Integer.parseInt(sPagina);
 
 		// 3. Crear un objeto con ellos
 		// 4. Llamar a la lógica de negocio
+		if (opcionEspecial) {
+			switch (ruta) {
+			case "numero-paginas":
+				// 4. Llamar a la lógica de negocio
+				int numeroPaginas = AnonimoNegocio.numeroPaginasProductos(texto);
+				// 6. Devolver el resultado
+				response.getWriter().append(String.valueOf(numeroPaginas));
+				break;
+			default:
+				throw new RuntimeException("No se reconoce la opción " + ruta);
+			}
+
+			return;
+		}
 
 		String json;
 
 		if (id == null) {
-			ArrayList<Producto> productos = AnonimoNegocio.listarProductos();
+			ArrayList<Producto> productos = AnonimoNegocio.listarProductos(pagina, texto);
 			// 5. Convertir a JSON
 			json = GSON.toJson(productos);
 		} else {
