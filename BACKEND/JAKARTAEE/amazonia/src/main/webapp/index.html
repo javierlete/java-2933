@@ -1,14 +1,103 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="es" class="h-100">
 <head>
-<meta charset="UTF-8">
-<title>Cliente REST</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amazonia</title>
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-icons.min.css">
+
 <script type="module" src="js/index.js"></script>
+
 </head>
-<body>
+<body class="h-100 d-flex flex-column">
+	<nav class="navbar navbar-expand-lg bg-dark sticky-top"
+		data-bs-theme="dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="index">AmazoniaJS</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" href="index">Principal</a>
+					</li>
+				</ul>
+				<form action="index" class="d-flex" role="search">
+					<input name="texto" class="form-control me-2" type="search"
+						placeholder="Buscar" aria-label="Search" value="${texto}" />
+					<button class="btn btn-outline-light" type="submit">Buscar</button>
+				</form>
+				<ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" href="carrito"><i
+							class="bi bi-cart"></i></a></li>
 
-	<ul id="listado">
-	</ul>
+					<li class="nav-item"><a class="nav-link" href="admin/listado">Administración</a></li>
 
+					<li class="nav-item"><a class="nav-link" href="usuario"><i
+							class="bi bi-person-fill"></i>
+							${usuario.nombre}&nbsp;${usuario.rol}</a></li>
+					<li class="nav-item"><a class="nav-link" href="logout"><i
+							class="bi bi-box-arrow-right"></i></a></li>
+					<li class="nav-item"><a class="nav-link" href="login"><i
+							class="bi bi-box-arrow-in-right"></i></a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="alert alert-info alert-dismissible fade show" role="alert">
+		${alerta.texto}
+		<button type="button" class="btn-close" data-bs-dismiss="alert"
+			aria-label="Close"></button>
+	</div>
+
+	<main class='container my-5'>
+		<section id="listado">
+			<div class="row row-cols-1 row-cols-md-3 g-4">
+				
+			</div>
+
+			<nav class="mt-3" aria-label="Navegación de páginas">
+				<ul class="pagination justify-content-center">
+					<!-- Ir al inicio (|<) -->
+					<li class="page-item ${pagina == 1 ? 'disabled' : ''}"><a
+						class="page-link" href="index?pagina=1&texto=${texto}"
+						aria-label="Primero"> <i class="bi bi-chevron-bar-left"></i>
+					</a></li>
+					<!-- Anterior (<) -->
+					<li class="page-item ${pagina == 1 ? 'disabled' : ''}"><a
+						class="page-link" href="index?pagina=${pagina - 1}&texto=${texto}"
+						aria-label="Anterior"> <i class="bi bi-chevron-left"></i>
+					</a></li>
+
+					<!-- Páginas Numéricas -->
+					<li class="page-item"><a class="page-link" href="#">${pagina}
+							de ${numeroPaginas}</a></li>
+
+					<!-- Siguiente (>) -->
+					<li class="page-item ${pagina == numeroPaginas ? 'disabled' : ''}"><a
+						class="page-link" href="index?pagina=${pagina + 1}&texto=${texto}"
+						aria-label="Siguiente"> <i class="bi bi-chevron-right"></i>
+					</a></li>
+					<!-- Ir al final (>|) -->
+					<li class="page-item ${pagina == numeroPaginas ? 'disabled' : ''}"><a
+						class="page-link"
+						href="index?pagina=${numeroPaginas}&texto=${texto}"
+						aria-label="Último"> <i class="bi bi-chevron-bar-right"></i>
+					</a></li>
+				</ul>
+			</nav>
+		</section>
+	</main>
+
+	<footer class="p-2 text-bg-dark mt-auto"> &copy;2026 Javier
+		Lete </footer>
+
+	<script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
