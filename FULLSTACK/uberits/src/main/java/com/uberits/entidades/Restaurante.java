@@ -21,8 +21,8 @@ public class Restaurante {
 
 	@ManyToMany
 	private Collection<TipoComida> tiposComida;
-
-	@OneToMany
+	
+	@OneToMany(mappedBy = "restaurante")
 	private Collection<Plato> platos;
 
 	public Restaurante(Long id, String nombre, Collection<TipoComida> tiposComida, Collection<Plato> platos) {

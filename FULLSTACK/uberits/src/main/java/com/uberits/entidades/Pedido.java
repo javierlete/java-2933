@@ -1,6 +1,7 @@
 package com.uberits.entidades;
 
 import java.util.Collection;
+
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -9,7 +10,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,10 +19,10 @@ public class Pedido {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne
+	@ManyToOne
 	private Cliente cliente;
 
-	@OneToMany
+	@OneToMany(mappedBy = "pedido")
 	private Collection<Linea> lineas;
 
 	public Pedido(Long id, Cliente cliente, Collection<Linea> lineas) {
@@ -90,13 +90,17 @@ public class Pedido {
 		private Long id;
 
 		@ManyToOne
+		private Pedido pedido;
+
+		@ManyToOne
 		private Plato plato;
-		
+
 		private Integer cantidad;
 
-		public Linea(Long id, Plato plato, Integer cantidad) {
+		public Linea(Long id, Pedido pedido, Plato plato, Integer cantidad) {
 			super();
 			this.id = id;
+			this.pedido = pedido;
 			this.plato = plato;
 			this.cantidad = cantidad;
 		}
@@ -110,6 +114,14 @@ public class Pedido {
 
 		public void setId(Long id) {
 			this.id = id;
+		}
+
+		public Pedido getPedido() {
+			return pedido;
+		}
+
+		public void setPedido(Pedido pedido) {
+			this.pedido = pedido;
 		}
 
 		public Plato getPlato() {
@@ -130,7 +142,7 @@ public class Pedido {
 
 		@Override
 		public int hashCode() {
-			return Objects.hash(cantidad, id, plato);
+			return Objects.hash(cantidad, id, pedido, plato);
 		}
 
 		@Override
@@ -143,13 +155,12 @@ public class Pedido {
 				return false;
 			Linea other = (Linea) obj;
 			return Objects.equals(cantidad, other.cantidad) && Objects.equals(id, other.id)
-					&& Objects.equals(plato, other.plato);
+					&& Objects.equals(pedido, other.pedido) && Objects.equals(plato, other.plato);
 		}
 
 		@Override
 		public String toString() {
-			return String.format("Linea [id=%s, plato=%s, cantidad=%s]", id, plato, cantidad);
+			return String.format("Linea [id=%s, pedido=%s, plato=%s, cantidad=%s]", id, pedido, plato, cantidad);
 		}
-
 	}
 }
