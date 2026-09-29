@@ -2,6 +2,9 @@ package com.uberits.entidades;
 
 import java.util.Objects;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,13 +20,18 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NotBlank
 	private String nombre;
 
+	@NotBlank
+	@Email
 	@Column(unique = true)
 	private String email;
 
+	@NotBlank
+	@Size(min = 4)
 	private String password;
-
+	
 	@OneToOne
 	private Cliente cliente;
 

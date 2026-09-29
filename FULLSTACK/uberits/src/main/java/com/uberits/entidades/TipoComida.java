@@ -2,6 +2,7 @@ package com.uberits.entidades;
 
 import java.util.Objects;
 
+import jakarta.validation.constraints.NotBlank;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,6 +15,7 @@ public class TipoComida {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank
 	private String nombre;
 
 	public TipoComida(Long id, String nombre) {

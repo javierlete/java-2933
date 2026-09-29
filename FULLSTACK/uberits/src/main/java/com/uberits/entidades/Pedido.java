@@ -11,6 +11,9 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "pedidos")
@@ -22,6 +25,7 @@ public class Pedido {
 	@OneToOne
 	private Cliente cliente;
 
+	@Size(min = 1)
 	@OneToMany
 	private Collection<Linea> lineas;
 
@@ -92,6 +96,8 @@ public class Pedido {
 		@ManyToOne
 		private Plato plato;
 		
+		@NotNull
+		@Min(1)
 		private Integer cantidad;
 
 		public Linea(Long id, Plato plato, Integer cantidad) {
