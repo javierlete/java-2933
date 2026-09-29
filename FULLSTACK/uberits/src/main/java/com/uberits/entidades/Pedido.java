@@ -51,7 +51,7 @@ public class Pedido {
 		this.cliente = cliente;
 	}
 
-	public Collection<Linea> getLinea() {
+	public Collection<Linea> getLineas() {
 		return lineas;
 	}
 

@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,15 +15,17 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "restaurantes")
 public class Restaurante {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
 	private String nombre;
 
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Collection<TipoComida> tiposComida;
-	
-	@OneToMany(mappedBy = "restaurante")
+
+	@OneToMany(mappedBy = "restaurante", fetch = FetchType.EAGER)
 	private Collection<Plato> platos;
 
 	public Restaurante(Long id, String nombre, Collection<TipoComida> tiposComida, Collection<Plato> platos) {
@@ -60,11 +63,11 @@ public class Restaurante {
 		this.tiposComida = tiposComida;
 	}
 
-	public Collection<Plato> getPlato() {
+	public Collection<Plato> getPlatos() {
 		return platos;
 	}
 
-	public void setPlato(Collection<Plato> platos) {
+	public void setPlatos(Collection<Plato> platos) {
 		this.platos = platos;
 	}
 
@@ -81,15 +84,20 @@ public class Restaurante {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+
 		Restaurante other = (Restaurante) obj;
-		return Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(platos, other.platos) && Objects.equals(tiposComida, other.tiposComida);
+
+		return Objects.equals(id, other.id)
+				&& Objects.equals(nombre, other.nombre)
+				&& Objects.equals(platos, other.platos)
+				&& Objects.equals(tiposComida, other.tiposComida);
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Restaurante [id=%s, nombre=%s, tiposComida=%s, plato=%s]", id, nombre, tiposComida,
-				platos);
+		return String.format(
+				"Restaurante [id=%s, nombre=%s, tiposComida=%s, platos=%s]",
+				id, nombre, tiposComida, platos);
 	}
-
 }
+
