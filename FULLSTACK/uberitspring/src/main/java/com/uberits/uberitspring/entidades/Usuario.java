@@ -1,5 +1,8 @@
 package com.uberits.uberitspring.entidades;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -41,6 +44,7 @@ public class Usuario {
     @Column(unique = true)
     private String email;
 
+    @JsonProperty(access = Access.WRITE_ONLY)
     @NotBlank
     @Size(max = 100)
     private String password;
