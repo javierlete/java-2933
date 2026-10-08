@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.uberits.uberitspring.dtos.UsuarioAutenticarEntradaDto;
+import com.uberits.uberitspring.dtos.UsuarioAutenticarSalidaDto;
+import com.uberits.uberitspring.dtos.UsuarioRegistrarEntradaDto;
+import com.uberits.uberitspring.dtos.UsuarioRegistrarSalidaDto;
 import com.uberits.uberitspring.entidades.Usuario;
 import com.uberits.uberitspring.servicios.AnonimoService;
 
@@ -20,23 +24,30 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/v2/usuarios")
 public class UsuarioRestController {
 	private final AnonimoService anonimoService;
-	
+
 	@PostMapping("autenticar")
-	public Usuario autenticar(@RequestBody Usuario usuario) {
+	public UsuarioAutenticarSalidaDto autenticar(@Valid @RequestBody UsuarioAutenticarEntradaDto usuarioDto) {
+		var usuario = Usuario.builder().email(usuarioDto.email()).password(usuarioDto.password()).build();
+
 		var usuarioAutenticado = anonimoService.autenticarse(usuario);
-		
-		if(usuarioAutenticado.isEmpty()) {
+
+		if (usuarioAutenticado.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
 		}
-		
-		return usuarioAutenticado.get();
+
+		return UsuarioAutenticarSalidaDto.builder().email(usuarioAutenticado.get().getEmail())
+				.nombre(usuarioAutenticado.get().getNombre()).build();
 	}
-	
+
 	@PostMapping("registrar")
 	@ResponseStatus(HttpStatus.CREATED)
-	public Usuario registrar(@Valid @RequestBody Usuario usuario) {
+	public UsuarioRegistrarSalidaDto registrar(@Valid @RequestBody UsuarioRegistrarEntradaDto usuarioDto) {
+		var usuario = Usuario.builder().nombre(usuarioDto.nombre()).email(usuarioDto.email())
+				.password(usuarioDto.password()).build();
+
 		var usuarioRegistrado = anonimoService.registrarse(usuario);
-		
-		return usuarioRegistrado;
+
+		return UsuarioRegistrarSalidaDto.builder().id(usuarioRegistrado.getId()).nombre(usuarioRegistrado.getNombre())
+				.email(usuarioRegistrado.getEmail()).build();
 	}
 }
