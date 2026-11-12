@@ -12,7 +12,7 @@
 	<groupId>com.uberits</groupId>
 	<artifactId>uberitspring</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>uberitspring</name>
 	<description>Uberits hecho con Spring</description>
 	<url />
