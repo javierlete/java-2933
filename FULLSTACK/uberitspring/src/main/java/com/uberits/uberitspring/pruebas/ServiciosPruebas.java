@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 
-@Component
+// @Component
 public class ServiciosPruebas implements CommandLineRunner {
 	private final AnonimoService anonimoService;
 
