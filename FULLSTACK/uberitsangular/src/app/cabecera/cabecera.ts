@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { JwtService } from '../jwt-service';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
-  imports: [RouterLink],
+  imports: [RouterLink, TitleCasePipe],
   selector: 'app-cabecera',
   styleUrl: './cabecera.css',
   templateUrl: './cabecera.html',
