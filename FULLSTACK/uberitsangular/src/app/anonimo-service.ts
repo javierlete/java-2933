@@ -1,11 +1,12 @@
 import { inject, Service } from '@angular/core';
 import { RestauranteListado } from './restaurante-listado';
 import { JwtService } from './jwt-service';
+import { apiUrl } from './app.config';
 
 @Service()
 export class AnonimoService {
-  private readonly URL_RESTAURANTES = 'http://localhost:8080/api/v2/restaurantes';
-  private readonly URL_USUARIOS = 'http://localhost:8080/api/v2/usuarios/';
+  private readonly URL_RESTAURANTES = `${apiUrl}/api/v2/restaurantes`;
+  private readonly URL_USUARIOS = `${apiUrl}/api/v2/usuarios/`;
 
   private readonly jwtService = inject(JwtService);
 

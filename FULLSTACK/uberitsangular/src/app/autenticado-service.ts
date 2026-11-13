@@ -1,10 +1,11 @@
 import { inject, Service } from '@angular/core';
 import { RestauranteCompleto } from './restaurante-completo';
 import { JwtService } from './jwt-service';
+import { apiUrl } from './app.config';
 
 @Service()
 export class AutenticadoService {
-  private readonly URL_RESTAURANTES = 'http://localhost:8080/api/v2/restaurantes/';
+  private readonly URL_RESTAURANTES = `${apiUrl}/api/v2/restaurantes/`;
 
   private readonly jwtService = inject(JwtService);
 
